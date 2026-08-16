@@ -26,5 +26,4 @@ response = client.responses.create(
     model="gpt-5.6",
     input="Hello! Introduce yourself in one sentence."
 )
-
 print("AI:", response.output_text)
