@@ -655,7 +655,7 @@ def ask_mallika(question: str) -> str:
 def main():
 
     speak(
-        " aha.. "
+        " hey what happen "
         # "what happen ?"
     )
 
