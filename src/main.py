@@ -655,8 +655,8 @@ def ask_mallika(question: str) -> str:
 def main():
 
     speak(
-        " hey.. "
-        "what happen"
+        " tell me what happen. ? ",
+        "what happen ?"
     )
 
     while True:
@@ -681,6 +681,9 @@ def main():
             "stop",
             "shutdown",
 
+            "just shup up",
+            "shut up",
+
             "terminate",
             "terminate yourself",
 
@@ -699,9 +702,8 @@ def main():
         ]:
 
             speak(
-                "Understood. "
-                "I am terminating myself. "
-                "Goodbye."
+                "well..!!"
+                "take care.."
             )
 
             break
