@@ -6,6 +6,7 @@ import datetime
 import platform
 import urllib.parse
 import tempfile
+import re
 
 import speech_recognition as sr
 
@@ -35,6 +36,102 @@ MODEL = "gemini-3-flash-preview"
 
 
 # ============================================================
+# PATHS
+# ============================================================
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
+
+ACTIVATION_SOUND = os.path.join(
+    BASE_DIR,
+    "sounds",
+    "siri-sound-effect.mp3"
+)
+
+
+# ============================================================
+# SETTINGS
+# ============================================================
+
+WAKE_WORDS = [
+    "hey ms",
+    "hey miss",
+    "hey ems",
+    "hey m s",
+    "hey mess",
+    "ms",
+    "miss",
+    "ems",
+    "m s",
+    "mess"
+]
+
+SLEEP_COMMANDS = [
+    "go to sleep",
+    "sleep",
+    "stop listening",
+    "stop listening mallika",
+    "that's all",
+    "thats all",
+    "thank you mallika",
+    "thank you",
+    "thanks mallika"
+]
+
+EXIT_COMMANDS = [
+    "exit",
+    "quit",
+    "goodbye",
+    "shutdown",
+    "terminate",
+    "terminate yourself",
+    "end the program",
+    "turn yourself off",
+    "turn off yourself"
+]
+
+
+# ============================================================
+# ACTIVATION SOUND
+# ============================================================
+
+def play_activation_sound():
+    """
+    Play the activation sound using macOS afplay.
+    """
+
+    try:
+
+        if not os.path.exists(ACTIVATION_SOUND):
+
+            print(
+                f"Activation sound not found: "
+                f"{ACTIVATION_SOUND}"
+            )
+
+            return
+
+        subprocess.Popen(
+            [
+                "afplay",
+                ACTIVATION_SOUND
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+    except Exception as e:
+
+        print(
+            "Activation sound error:",
+            e
+        )
+
+
+# ============================================================
 # SPEECH RECOGNITION
 # ============================================================
 
@@ -47,20 +144,37 @@ recognizer.phrase_threshold = 0.3
 
 
 # ============================================================
+# MICROPHONE CALIBRATION
+# ============================================================
+
+def calibrate_microphone():
+
+    try:
+
+        with sr.Microphone() as source:
+
+            print("Calibrating microphone...")
+
+            recognizer.adjust_for_ambient_noise(
+                source,
+                duration=1
+            )
+
+            print("Microphone ready.")
+
+    except Exception as e:
+
+        print(
+            "Microphone calibration error:",
+            e
+        )
+
+
+# ============================================================
 # LANGUAGE DETECTION
 # ============================================================
 
 def detect_language(text: str) -> str:
-    """
-    Detect the language/script of the text.
-
-    Returns:
-        bn = Bengali
-        hi = Hindi
-        ru = Russian
-        es = Spanish
-        en = English
-    """
 
     # Bengali
     for char in text:
@@ -68,19 +182,19 @@ def detect_language(text: str) -> str:
         if '\u0980' <= char <= '\u09FF':
             return "bn"
 
-    # Hindi / Devanagari
+    # Hindi
     for char in text:
 
         if '\u0900' <= char <= '\u097F':
             return "hi"
 
-    # Russian / Cyrillic
+    # Russian
     for char in text:
 
         if '\u0400' <= char <= '\u04FF':
             return "ru"
 
-    # Basic Spanish word detection
+    # Spanish
     lower_text = text.lower()
 
     spanish_words = [
@@ -104,7 +218,6 @@ def detect_language(text: str) -> str:
         if word in lower_text:
             return "es"
 
-    # Default
     return "en"
 
 
@@ -113,16 +226,6 @@ def detect_language(text: str) -> str:
 # ============================================================
 
 def speak(text: str):
-    """
-    Speak text using Google Text-to-Speech.
-
-    Supports:
-        Bengali
-        Hindi
-        English
-        Russian
-        Spanish
-    """
 
     if not text:
         return
@@ -134,14 +237,12 @@ def speak(text: str):
 
     try:
 
-        # Detect response language
         language = detect_language(text)
 
         print(
             f"Voice language: {language}"
         )
 
-        # Create temporary MP3 file
         temp_file = tempfile.NamedTemporaryFile(
             suffix=".mp3",
             delete=False
@@ -151,7 +252,6 @@ def speak(text: str):
 
         temp_file.close()
 
-        # Generate speech
         tts = gTTS(
             text=text,
             lang=language,
@@ -160,9 +260,11 @@ def speak(text: str):
 
         tts.save(temp_path)
 
-        # Play the generated audio on macOS
         subprocess.run(
-            ["afplay", temp_path],
+            [
+                "afplay",
+                temp_path
+            ],
             check=False
         )
 
@@ -173,11 +275,13 @@ def speak(text: str):
             e
         )
 
-        # Fallback to macOS voice
         try:
 
             subprocess.run(
-                ["say", text],
+                [
+                    "say",
+                    text
+                ],
                 check=False
             )
 
@@ -190,7 +294,6 @@ def speak(text: str):
 
     finally:
 
-        # Delete temporary MP3
         if temp_path:
 
             try:
@@ -203,45 +306,19 @@ def speak(text: str):
 
 
 # ============================================================
-# LISTEN TO USER
+# SPEECH RECOGNITION HELPER
 # ============================================================
 
-def listen():
+def recognize_audio(audio):
 
-    try:
-
-        with sr.Microphone() as source:
-
-            print()
-            print("Listening...")
-
-            audio = recognizer.listen(
-                source,
-                timeout=None,
-                phrase_time_limit=10
-            )
-
-    except Exception as e:
-
-        print(
-            "Microphone error:",
-            e
-        )
-
-        return ""
-
-
-    # Supported languages
     languages = [
-        "en-IN",   # English
-        "hi-IN",   # Hindi
-        "bn-IN",   # Bengali
-        "ru-RU",   # Russian
-        "es-ES"    # Spanish
+        "en-IN",
+        "hi-IN",
+        "bn-IN",
+        "ru-RU",
+        "es-ES"
     ]
 
-
-    # Try speech recognition
     for language in languages:
 
         try:
@@ -253,17 +330,11 @@ def listen():
 
             if text:
 
-                print(
-                    f"You ({language}): {text}"
-                )
-
-                return text
-
+                return text.strip()
 
         except sr.UnknownValueError:
 
             continue
-
 
         except sr.RequestError as e:
 
@@ -274,12 +345,134 @@ def listen():
 
             return ""
 
-
-    print(
-        "I couldn't understand what you said."
-    )
-
     return ""
+
+
+# ============================================================
+# WAIT FOR WAKE WORD
+# ============================================================
+
+def wait_for_wake_word():
+
+    while True:
+
+        try:
+
+            with sr.Microphone() as source:
+
+                print()
+                print(
+                    "Waiting for "
+                    "\"Hey MS\"..."
+                )
+
+                try:
+
+                    audio = recognizer.listen(
+                        source,
+                        timeout=None,
+                        phrase_time_limit=5
+                    )
+
+                except Exception:
+
+                    continue
+
+            text = recognize_audio(audio)
+
+            if not text:
+                continue
+
+            text_lower = text.lower().strip()
+
+            print(
+                f"Heard: {text}"
+            )
+
+            # ------------------------------------------------
+            # Find wake word
+            # ------------------------------------------------
+
+            for wake_word in WAKE_WORDS:
+
+                if wake_word in text_lower:
+
+                    print(
+                        "Wake word detected!"
+                    )
+
+                    # Remove wake word
+                    command = re.sub(
+                        re.escape(wake_word),
+                        "",
+                        text,
+                        count=1,
+                        flags=re.IGNORECASE
+                    ).strip(
+                        " ,.!?"
+                    )
+
+                    return command
+
+        except Exception as e:
+
+            print(
+                "Wake-word error:",
+                e
+            )
+
+            time.sleep(0.5)
+
+
+# ============================================================
+# LISTEN FOR COMMAND
+# ============================================================
+
+def listen_command():
+
+    try:
+
+        with sr.Microphone() as source:
+
+            print()
+            print("Listening...")
+
+            try:
+
+                audio = recognizer.listen(
+                    source,
+                    timeout=5,
+                    phrase_time_limit=10
+                )
+
+            except sr.WaitTimeoutError:
+
+                return ""
+
+        text = recognize_audio(audio)
+
+        if text:
+
+            print(
+                f"You: {text}"
+            )
+
+            return text
+
+        print(
+            "I couldn't understand what you said."
+        )
+
+        return ""
+
+    except Exception as e:
+
+        print(
+            "Microphone error:",
+            e
+        )
+
+        return ""
 
 
 # ============================================================
@@ -287,14 +480,15 @@ def listen():
 # ============================================================
 
 def open_application(app_name: str) -> str:
-    """
-    Open an installed application on macOS.
-    """
 
     try:
 
         result = subprocess.run(
-            ["open", "-a", app_name],
+            [
+                "open",
+                "-a",
+                app_name
+            ],
             capture_output=True,
             text=True
         )
@@ -320,9 +514,6 @@ def open_application(app_name: str) -> str:
 
 
 def close_application(app_name: str) -> str:
-    """
-    Close an application on macOS.
-    """
 
     try:
 
@@ -333,7 +524,11 @@ def close_application(app_name: str) -> str:
         '''
 
         result = subprocess.run(
-            ["osascript", "-e", script],
+            [
+                "osascript",
+                "-e",
+                script
+            ],
             capture_output=True,
             text=True
         )
@@ -361,21 +556,23 @@ def close_application(app_name: str) -> str:
 # ============================================================
 
 def open_website(url: str) -> str:
-    """
-    Open a website in the default browser.
-    """
 
     try:
 
         if not url.startswith(
-            ("http://", "https://")
+            (
+                "http://",
+                "https://"
+            )
         ):
 
             url = "https://" + url
 
         webbrowser.open(url)
 
-        return f"Opened {url}."
+        return (
+            "Successfully opened the website."
+        )
 
     except Exception as e:
 
@@ -385,13 +582,10 @@ def open_website(url: str) -> str:
 
 
 # ============================================================
-# GOOGLE SEARCH
+# GOOGLE
 # ============================================================
 
 def google_search(query: str) -> str:
-    """
-    Search Google for a user query.
-    """
 
     try:
 
@@ -419,13 +613,10 @@ def google_search(query: str) -> str:
 
 
 # ============================================================
-# YOUTUBE / MUSIC
+# YOUTUBE
 # ============================================================
 
 def play_song(song: str) -> str:
-    """
-    Search YouTube for a song or artist.
-    """
 
     try:
 
@@ -458,9 +649,6 @@ def play_song(song: str) -> str:
 # ============================================================
 
 def get_current_time() -> str:
-    """
-    Get the current local time.
-    """
 
     now = datetime.datetime.now()
 
@@ -474,9 +662,6 @@ def get_current_time() -> str:
 # ============================================================
 
 def get_current_date() -> str:
-    """
-    Get today's date.
-    """
 
     now = datetime.datetime.now()
 
@@ -490,9 +675,6 @@ def get_current_date() -> str:
 # ============================================================
 
 def get_computer_info() -> str:
-    """
-    Get basic Mac information.
-    """
 
     system = platform.system()
 
@@ -508,6 +690,63 @@ def get_computer_info() -> str:
 
 
 # ============================================================
+# CALCULATOR
+# ============================================================
+
+def calculate(expression: str) -> str:
+
+    """
+    Safe basic calculator.
+
+    Supports:
+        + - * / % ** ( )
+    """
+
+    try:
+
+        expression = expression.lower()
+
+        expression = expression.replace(
+            "calculate",
+            ""
+        )
+
+        expression = expression.replace(
+            "what is",
+            ""
+        )
+
+        expression = expression.strip()
+
+        # Only allow mathematical characters
+        if not re.fullmatch(
+            r"[0-9+\-*/().%\s]+",
+            expression
+        ):
+
+            return (
+                "I can only calculate "
+                "basic mathematical expressions."
+            )
+
+        result = eval(
+            expression,
+            {
+                "__builtins__": None
+            },
+            {}
+        )
+
+        return f"The answer is {result}."
+
+    except Exception:
+
+        return (
+            "I couldn't calculate that."
+        )
+
+
+# ============================================================
 # SYSTEM PROMPT
 # ============================================================
 
@@ -517,13 +756,8 @@ running on the user's Mac.
 
 Your personality:
 
-- Friendly
-- Intelligent
-- Calm
-- Helpful
-- Respectful
-- Natural
-- Conversational
+Friendly, intelligent, calm, helpful, respectful,
+natural and conversational.
 
 You communicate in:
 
@@ -532,7 +766,6 @@ You communicate in:
 3. Bengali
 4. Russian
 5. Spanish
-
 
 LANGUAGE RULES:
 
@@ -543,24 +776,16 @@ LANGUAGE RULES:
 5. If the user speaks Russian, answer in Russian.
 6. If the user speaks Spanish, answer in Spanish.
 7. If the user speaks English, answer in English.
-8. If the user mixes languages, respond naturally using
-   the dominant language.
-9. Never translate unless the user asks for translation.
-
 
 VOICE RULES:
 
 1. Your responses will be spoken aloud.
 2. Keep normal responses reasonably short.
 3. Do not use markdown.
-4. Do not use bullet points unless necessary.
-5. Do not use emojis in spoken responses.
-6. Sound like a real personal assistant.
-
+4. Do not use emojis in spoken responses.
+5. Sound like a real personal assistant.
 
 COMPUTER CONTROL:
-
-You can use the available tools to control the Mac.
 
 When the user asks you to:
 
@@ -568,16 +793,16 @@ When the user asks you to:
 - Close an application → use close_application
 - Open a website → use open_website
 - Search Google → use google_search
-- Play/search for music → use play_song
-- Ask the current time → use get_current_time
+- Search/play music → use play_song
+- Ask current time → use get_current_time
 - Ask today's date → use get_current_date
-- Ask about the computer → use get_computer_info
-
+- Ask about computer → use get_computer_info
+- Calculate something → use calculate
 
 IMPORTANT:
 
-Never claim that you performed an action unless the tool
-actually reports that it succeeded.
+Never claim that an action succeeded unless the tool
+actually reports success.
 
 Do not invent tool results.
 
@@ -607,9 +832,9 @@ chat = client.chats.create(
             play_song,
             get_current_time,
             get_current_date,
-            get_computer_info
+            get_computer_info,
+            calculate
         ]
-
     )
 )
 
@@ -626,7 +851,6 @@ def ask_mallika(question: str) -> str:
             question
         )
 
-        # Sometimes response.text can be empty
         if not response.text:
 
             return (
@@ -650,242 +874,382 @@ def ask_mallika(question: str) -> str:
 
 
 # ============================================================
-# MAIN LOOP
+# HANDLE COMMAND
+# ============================================================
+
+def handle_command(question: str):
+
+    command = question.lower().strip()
+
+    # ========================================================
+    # EXIT
+    # ========================================================
+
+    if command in EXIT_COMMANDS:
+
+        speak(
+            "Goodbye. Take care."
+        )
+
+        return "EXIT"
+
+
+    # ========================================================
+    # SLEEP / STOP LISTENING
+    # ========================================================
+
+    if command in SLEEP_COMMANDS:
+
+        speak(
+            "Okay. I'm listening for you."
+        )
+
+        return "SLEEP"
+
+
+    # ========================================================
+    # OPEN CHROME
+    # ========================================================
+
+    if command in [
+
+        "open google chrome",
+        "open chrome",
+        "launch google chrome",
+        "launch chrome",
+        "start google chrome",
+        "start chrome"
+
+    ]:
+
+        result = open_application(
+            "Google Chrome"
+        )
+
+        speak(result)
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # OPEN GOOGLE
+    # ========================================================
+
+    if command in [
+
+        "open google",
+        "launch google",
+        "start google"
+
+    ]:
+
+        open_website(
+            "https://www.google.com"
+        )
+
+        speak(
+            "Successfully opened Google."
+        )
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # OPEN YOUTUBE
+    # ========================================================
+
+    if command in [
+
+        "open youtube",
+        "launch youtube",
+        "start youtube"
+
+    ]:
+
+        open_website(
+            "https://www.youtube.com"
+        )
+
+        speak(
+            "Successfully opened YouTube."
+        )
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # OPEN SAFARI
+    # ========================================================
+
+    if command in [
+
+        "open safari",
+        "launch safari",
+        "start safari"
+
+    ]:
+
+        result = open_application(
+            "Safari"
+        )
+
+        speak(result)
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # OPEN FINDER
+    # ========================================================
+
+    if command in [
+
+        "open finder",
+        "launch finder",
+        "start finder"
+
+    ]:
+
+        result = open_application(
+            "Finder"
+        )
+
+        speak(result)
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # OPEN TERMINAL
+    # ========================================================
+
+    if command in [
+
+        "open terminal",
+        "launch terminal",
+        "start terminal"
+
+    ]:
+
+        result = open_application(
+            "Terminal"
+        )
+
+        speak(result)
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # OPEN VS CODE
+    # ========================================================
+
+    if command in [
+
+        "open visual studio code",
+        "open vs code",
+        "open vscode",
+        "launch visual studio code",
+        "launch vs code",
+        "start visual studio code",
+        "start vs code"
+
+    ]:
+
+        result = open_application(
+            "Visual Studio Code"
+        )
+
+        speak(result)
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # CALCULATOR
+    # ========================================================
+
+    calculator_pattern = re.fullmatch(
+        r"(calculate|what is)\s+"
+        r"[0-9+\-*/().%\s]+",
+        command
+    )
+
+    if calculator_pattern:
+
+        result = calculate(
+            command
+        )
+
+        speak(result)
+
+        return "CONTINUE"
+
+
+    # ========================================================
+    # GEMINI
+    # ========================================================
+
+    answer = ask_mallika(
+        question
+    )
+
+    speak(answer)
+
+    return "CONTINUE"
+
+
+# ============================================================
+# ACTIVE CONVERSATION
+# ============================================================
+
+def active_conversation(first_command=""):
+
+    """
+    After the wake word is detected, Mallika stays active.
+
+    Example:
+
+        Hey MS, open Google
+        Open YouTube
+        What time is it?
+        Calculate 25 * 4
+        Go to sleep
+
+    The user does NOT need to say "Hey MS" before every command.
+    """
+
+    # --------------------------------------------------------
+    # First command may already be attached to wake word
+    # --------------------------------------------------------
+
+    if first_command:
+
+        result = handle_command(
+            first_command
+        )
+
+        if result == "EXIT":
+            return "EXIT"
+
+        if result == "SLEEP":
+            return "SLEEP"
+
+
+    # --------------------------------------------------------
+    # Continue conversation
+    # --------------------------------------------------------
+
+    while True:
+
+        question = listen_command()
+
+        # No speech detected
+        if not question:
+
+            print(
+                "No command detected."
+            )
+
+            return "SLEEP"
+
+        result = handle_command(
+            question
+        )
+
+        if result == "EXIT":
+
+            return "EXIT"
+
+        if result == "SLEEP":
+
+            return "SLEEP"
+
+
+# ============================================================
+# MAIN
 # ============================================================
 
 def main():
 
-    speak(
-        " hey what happen "
-        # "what happen ?"
+    print()
+    print(
+        "=========================================="
     )
+    print(
+        "        MALLIKA AI ASSISTANT"
+    )
+    print(
+        "=========================================="
+    )
+
+    print()
+    print(
+        "Say \"Hey MS\" to activate Mallika."
+    )
+
+    # --------------------------------------------------------
+    # Calibrate microphone once
+    # --------------------------------------------------------
+
+    calibrate_microphone()
+
+    # --------------------------------------------------------
+    # Startup activation sound
+    # --------------------------------------------------------
+
+    play_activation_sound()
+
+    # --------------------------------------------------------
+    # MAIN WAKE-WORD LOOP
+    # --------------------------------------------------------
 
     while True:
 
-        question = listen()
+        # Wait for:
+        # Hey MS
+        # MS
+        # Hey Miss
+        # etc.
 
-        if not question:
-            continue
+        first_command = wait_for_wake_word()
 
-        command = question.lower().strip()
+        # ----------------------------------------------------
+        # Wake word detected
+        # ----------------------------------------------------
 
+        play_activation_sound()
 
-        # ====================================================
-        # TERMINATION COMMANDS
-        # ====================================================
+        print()
+        print(
+            "Mallika activated."
+        )
 
-        if command in [
+        # ----------------------------------------------------
+        # Stay active and process commands
+        # ----------------------------------------------------
 
-            "exit",
-            "quit",
-            "goodbye",
-            "stop",
-            "shutdown",
+        result = active_conversation(
+            first_command
+        )
 
-            "just shup up",
-            "shut up",
+        # ----------------------------------------------------
+        # Completely exit program
+        # ----------------------------------------------------
 
-            "terminate",
-            "terminate yourself",
-
-            "stop yourself",
-            "close yourself",
-
-            "shut yourself down",
-            "shutdown yourself",
-
-            "end yourself",
-            "end the program",
-
-            "turn yourself off",
-            "turn off yourself"
-
-        ]:
-
-            speak(
-                "well..!!"
-                "take care.."
-            )
+        if result == "EXIT":
 
             break
 
+        # ----------------------------------------------------
+        # Otherwise return to wake-word mode
+        # ----------------------------------------------------
 
-        # ====================================================
-        # OPEN GOOGLE CHROME
-        # ====================================================
-
-        if command in [
-
-            "open google chrome",
-            "open chrome",
-
-            "launch google chrome",
-            "launch chrome",
-
-            "start google chrome",
-            "start chrome"
-
-        ]:
-
-            result = open_application(
-                "Google Chrome"
-            )
-
-            speak(result)
-
-            # IMPORTANT:
-            # Do NOT send this command to Gemini.
-            continue
-
-
-        # ====================================================
-        # OPEN GOOGLE
-        # ====================================================
-
-        if command in [
-
-            "open google",
-            "launch google",
-            "start google"
-
-        ]:
-
-            result = open_website(
-                "https://www.google.com"
-            )
-
-            speak(result)
-
-            continue
-
-
-        # ====================================================
-        # OPEN YOUTUBE
-        # ====================================================
-
-        if command in [
-
-            "open youtube",
-            "launch youtube",
-            "start youtube"
-
-        ]:
-
-            result = open_website(
-                "https://www.youtube.com"
-            )
-
-            speak(result)
-
-            continue
-
-
-        # ====================================================
-        # OPEN SAFARI
-        # ====================================================
-
-        if command in [
-
-            "open safari",
-            "launch safari",
-            "start safari"
-
-        ]:
-
-            result = open_application(
-                "Safari"
-            )
-
-            speak(result)
-
-            continue
-
-
-        # ====================================================
-        # OPEN FINDER
-        # ====================================================
-
-        if command in [
-
-            "open finder",
-            "launch finder",
-            "start finder"
-
-        ]:
-
-            result = open_application(
-                "Finder"
-            )
-
-            speak(result)
-
-            continue
-
-
-        # ====================================================
-        # OPEN TERMINAL
-        # ====================================================
-
-        if command in [
-
-            "open terminal",
-            "launch terminal",
-            "start terminal"
-
-        ]:
-
-            result = open_application(
-                "Terminal"
-            )
-
-            speak(result)
-
-            continue
-
-
-        # ====================================================
-        # OPEN VS CODE
-        # ====================================================
-
-        if command in [
-
-            "open visual studio code",
-            "open vs code",
-            "open vscode",
-
-            "launch visual studio code",
-            "launch vs code",
-
-            "start visual studio code",
-            "start vs code"
-
-        ]:
-
-            result = open_application(
-                "Visual Studio Code"
-            )
-
-            speak(result)
-
-            continue
-
-
-        # ====================================================
-        # GEMINI AI
-        # ====================================================
-
-        answer = ask_mallika(
-            question
+        print()
+        print(
+            "Mallika is sleeping."
         )
 
-
-        # ====================================================
-        # SPEAK GEMINI RESPONSE
-        # ====================================================
-
-        speak(
-            answer
-        )
 
 # ============================================================
 # START PROGRAM
