@@ -4,12 +4,14 @@ import webbrowser
 import datetime
 import platform
 import urllib.parse
+import tempfile
 
 import speech_recognition as sr
 
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from gtts import gTTS
 
 
 # ============================================================
@@ -44,12 +46,81 @@ recognizer.phrase_threshold = 0.3
 
 
 # ============================================================
+# LANGUAGE DETECTION
+# ============================================================
+
+def detect_language(text: str) -> str:
+    """
+    Detect the language/script of the text.
+
+    Returns:
+        bn = Bengali
+        hi = Hindi
+        ru = Russian
+        es = Spanish
+        en = English
+    """
+
+    # Bengali
+    for char in text:
+
+        if '\u0980' <= char <= '\u09FF':
+            return "bn"
+
+    # Hindi / Devanagari
+    for char in text:
+
+        if '\u0900' <= char <= '\u097F':
+            return "hi"
+
+    # Russian / Cyrillic
+    for char in text:
+
+        if '\u0400' <= char <= '\u04FF':
+            return "ru"
+
+    # Basic Spanish word detection
+    lower_text = text.lower()
+
+    spanish_words = [
+        "hola",
+        "gracias",
+        "buenos",
+        "buenas",
+        "cómo",
+        "como",
+        "estás",
+        "esta",
+        "qué",
+        "que",
+        "por favor",
+        "adiós",
+        "adios"
+    ]
+
+    for word in spanish_words:
+
+        if word in lower_text:
+            return "es"
+
+    # Default
+    return "en"
+
+
+# ============================================================
 # VOICE OUTPUT
 # ============================================================
 
 def speak(text: str):
     """
-    Speak text using macOS built-in speech system.
+    Speak text using Google Text-to-Speech.
+
+    Supports:
+        Bengali
+        Hindi
+        English
+        Russian
+        Spanish
     """
 
     if not text:
@@ -58,16 +129,76 @@ def speak(text: str):
     print()
     print("Mallika:", text)
 
+    temp_path = None
+
     try:
 
+        # Detect response language
+        language = detect_language(text)
+
+        print(
+            f"Voice language: {language}"
+        )
+
+        # Create temporary MP3 file
+        temp_file = tempfile.NamedTemporaryFile(
+            suffix=".mp3",
+            delete=False
+        )
+
+        temp_path = temp_file.name
+
+        temp_file.close()
+
+        # Generate speech
+        tts = gTTS(
+            text=text,
+            lang=language,
+            slow=False
+        )
+
+        tts.save(temp_path)
+
+        # Play the generated audio on macOS
         subprocess.run(
-            ["say", text],
+            ["afplay", temp_path],
             check=False
         )
 
     except Exception as e:
 
-        print("Voice error:", e)
+        print(
+            "Voice error:",
+            e
+        )
+
+        # Fallback to macOS voice
+        try:
+
+            subprocess.run(
+                ["say", text],
+                check=False
+            )
+
+        except Exception as fallback_error:
+
+            print(
+                "Fallback voice error:",
+                fallback_error
+            )
+
+    finally:
+
+        # Delete temporary MP3
+        if temp_path:
+
+            try:
+
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
+
+            except Exception:
+                pass
 
 
 # ============================================================
@@ -91,7 +222,10 @@ def listen():
 
     except Exception as e:
 
-        print("Microphone error:", e)
+        print(
+            "Microphone error:",
+            e
+        )
 
         return ""
 
@@ -106,7 +240,7 @@ def listen():
     ]
 
 
-    # Try to recognize speech
+    # Try speech recognition
     for language in languages:
 
         try:
@@ -148,18 +282,12 @@ def listen():
 
 
 # ============================================================
-# MAC CONTROL
+# MAC APPLICATION CONTROL
 # ============================================================
 
 def open_application(app_name: str) -> str:
     """
     Open an installed application on macOS.
-
-    Args:
-        app_name: The name of the macOS application.
-
-    Returns:
-        A message describing the result.
     """
 
     try:
@@ -193,12 +321,6 @@ def open_application(app_name: str) -> str:
 def close_application(app_name: str) -> str:
     """
     Close an application on macOS.
-
-    Args:
-        app_name: The name of the application.
-
-    Returns:
-        A message describing the result.
     """
 
     try:
@@ -240,12 +362,6 @@ def close_application(app_name: str) -> str:
 def open_website(url: str) -> str:
     """
     Open a website in the default browser.
-
-    Args:
-        url: Website URL.
-
-    Returns:
-        A message describing the result.
     """
 
     try:
@@ -274,12 +390,6 @@ def open_website(url: str) -> str:
 def google_search(query: str) -> str:
     """
     Search Google for a user query.
-
-    Args:
-        query: Search query.
-
-    Returns:
-        A message describing the result.
     """
 
     try:
@@ -314,12 +424,6 @@ def google_search(query: str) -> str:
 def play_song(song: str) -> str:
     """
     Search YouTube for a song or artist.
-
-    Args:
-        song: Song or artist name.
-
-    Returns:
-        A message describing the result.
     """
 
     try:
@@ -355,9 +459,6 @@ def play_song(song: str) -> str:
 def get_current_time() -> str:
     """
     Get the current local time.
-
-    Returns:
-        Current time.
     """
 
     now = datetime.datetime.now()
@@ -374,9 +475,6 @@ def get_current_time() -> str:
 def get_current_date() -> str:
     """
     Get today's date.
-
-    Returns:
-        Current date.
     """
 
     now = datetime.datetime.now()
@@ -393,9 +491,6 @@ def get_current_date() -> str:
 def get_computer_info() -> str:
     """
     Get basic Mac information.
-
-    Returns:
-        Basic computer information.
     """
 
     system = platform.system()
@@ -437,6 +532,7 @@ You communicate in:
 4. Russian
 5. Spanish
 
+
 LANGUAGE RULES:
 
 1. Detect the language used by the user.
@@ -450,6 +546,7 @@ LANGUAGE RULES:
    the dominant language.
 9. Never translate unless the user asks for translation.
 
+
 VOICE RULES:
 
 1. Your responses will be spoken aloud.
@@ -458,6 +555,7 @@ VOICE RULES:
 4. Do not use bullet points unless necessary.
 5. Do not use emojis in spoken responses.
 6. Sound like a real personal assistant.
+
 
 COMPUTER CONTROL:
 
@@ -473,6 +571,7 @@ When the user asks you to:
 - Ask the current time → use get_current_time
 - Ask today's date → use get_current_date
 - Ask about the computer → use get_computer_info
+
 
 IMPORTANT:
 
@@ -526,8 +625,14 @@ def ask_mallika(question: str) -> str:
             question
         )
 
-        return response.text
+        # Sometimes response.text can be empty
+        if not response.text:
 
+            return (
+                "I didn't receive a response."
+            )
+
+        return response.text
 
     except Exception as e:
 
@@ -550,48 +655,231 @@ def ask_mallika(question: str) -> str:
 def main():
 
     speak(
-        "hi, I am PP. "
-        "Tell me what happen?"
+        " hey.. "
+        "what happen"
     )
-
 
     while True:
 
         question = listen()
 
-
         if not question:
-
             continue
-
 
         command = question.lower().strip()
 
 
-        # Exit commands
+        # ====================================================
+        # TERMINATION COMMANDS
+        # ====================================================
+
         if command in [
+
             "exit",
             "quit",
             "goodbye",
             "stop",
-            "shutdown"
+            "shutdown",
+
+            "terminate",
+            "terminate yourself",
+
+            "stop yourself",
+            "close yourself",
+
+            "shut yourself down",
+            "shutdown yourself",
+
+            "end yourself",
+            "end the program",
+
+            "turn yourself off",
+            "turn off yourself"
+
         ]:
 
             speak(
-                "Goodbye. "
-                "See you later."
+                "Understood. "
+                "I am terminating myself. "
+                "Goodbye."
             )
 
             break
 
 
-        # Ask Gemini
+        # ====================================================
+        # OPEN GOOGLE CHROME
+        # ====================================================
+
+        if command in [
+
+            "open google chrome",
+            "open chrome",
+
+            "launch google chrome",
+            "launch chrome",
+
+            "start google chrome",
+            "start chrome"
+
+        ]:
+
+            result = open_application(
+                "Google Chrome"
+            )
+
+            speak(result)
+
+            # IMPORTANT:
+            # Do NOT send this command to Gemini.
+            continue
+
+
+        # ====================================================
+        # OPEN GOOGLE
+        # ====================================================
+
+        if command in [
+
+            "open google",
+            "launch google",
+            "start google"
+
+        ]:
+
+            result = open_website(
+                "https://www.google.com"
+            )
+
+            speak(result)
+
+            continue
+
+
+        # ====================================================
+        # OPEN YOUTUBE
+        # ====================================================
+
+        if command in [
+
+            "open youtube",
+            "launch youtube",
+            "start youtube"
+
+        ]:
+
+            result = open_website(
+                "https://www.youtube.com"
+            )
+
+            speak(result)
+
+            continue
+
+
+        # ====================================================
+        # OPEN SAFARI
+        # ====================================================
+
+        if command in [
+
+            "open safari",
+            "launch safari",
+            "start safari"
+
+        ]:
+
+            result = open_application(
+                "Safari"
+            )
+
+            speak(result)
+
+            continue
+
+
+        # ====================================================
+        # OPEN FINDER
+        # ====================================================
+
+        if command in [
+
+            "open finder",
+            "launch finder",
+            "start finder"
+
+        ]:
+
+            result = open_application(
+                "Finder"
+            )
+
+            speak(result)
+
+            continue
+
+
+        # ====================================================
+        # OPEN TERMINAL
+        # ====================================================
+
+        if command in [
+
+            "open terminal",
+            "launch terminal",
+            "start terminal"
+
+        ]:
+
+            result = open_application(
+                "Terminal"
+            )
+
+            speak(result)
+
+            continue
+
+
+        # ====================================================
+        # OPEN VS CODE
+        # ====================================================
+
+        if command in [
+
+            "open visual studio code",
+            "open vs code",
+            "open vscode",
+
+            "launch visual studio code",
+            "launch vs code",
+
+            "start visual studio code",
+            "start vs code"
+
+        ]:
+
+            result = open_application(
+                "Visual Studio Code"
+            )
+
+            speak(result)
+
+            continue
+
+
+        # ====================================================
+        # GEMINI AI
+        # ====================================================
+
         answer = ask_mallika(
             question
         )
 
 
-        # Speak answer
+        # ====================================================
+        # SPEAK GEMINI RESPONSE
+        # ====================================================
+
         speak(
             answer
         )
