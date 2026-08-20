@@ -54,8 +54,8 @@ a task.
 *** If the query is asking to perform multiple tasks like 'open facebook, telegram and close whatsapp',
 respond with multiple classifications separated appropriately. ***
 
-*** If the user is saying goodbye or wants to end the conversation like 'bye jarvis.',
-respond with 'general (query)' ***
+*** If the user is saying goodbye or wants to end the conversation, like 'bye', 'goodbye',
+or 'bye jarvis', respond with 'exit (query)' ***
 
 *** Respond with 'general (query)' if you can't decide the kind of query or if a query is asking to
 have a normal conversation. ***
@@ -85,6 +85,13 @@ ChatHistory = [
     {"role": "Chatbot", "message": "realtime what's the weather like today"},
     {"role": "User", "message": "who won the cricket match yesterday"},
     {"role": "Chatbot", "message": "realtime who won the cricket match yesterday"},
+    # --- new examples to teach the model when to classify as 'exit' ---
+    {"role": "User", "message": "bye"},
+    {"role": "Chatbot", "message": "exit bye"},
+    {"role": "User", "message": "goodbye"},
+    {"role": "Chatbot", "message": "exit goodbye"},
+    {"role": "User", "message": "bye jarvis"},
+    {"role": "Chatbot", "message": "exit bye jarvis"},
 ]
 
 
@@ -136,4 +143,8 @@ def FirstLayerDMM(prompt: str = "test"):
 
 if __name__ == "__main__":
     while True:
-        print(FirstLayerDMM(input(">>> ")))
+        result = FirstLayerDMM(input(">>> "))
+        print(result)
+        if any(r.startswith("exit") for r in result):
+            print("Have a Good Day !")
+            break
