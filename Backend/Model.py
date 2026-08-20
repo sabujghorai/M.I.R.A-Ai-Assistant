@@ -55,7 +55,7 @@ a task.
 respond with multiple classifications separated appropriately. ***
 
 *** If the user is saying goodbye or wants to end the conversation, like 'bye', 'goodbye',
-or 'bye jarvis', respond with 'exit (query)' ***
+or 'bye jarvis', 'terminate yourself', 'quit yourself', 'stop talking', 'just go ahed', 'shut up','i don't want to see again','fuck offjust ','go to hell','please stop','stop the conversation','shutdown','shutdown yourself','sleep' respond with 'exit (query)' ***
 
 *** Respond with 'general (query)' if you can't decide the kind of query or if a query is asking to
 have a normal conversation. ***
