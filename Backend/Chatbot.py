@@ -7,7 +7,7 @@ from dotenv import dotenv_values # importing the dotenv_values to read enviornme
 env_vard = dotenv_values(".env")
 
 # Retrive specific envirenment variables for username,assistant name and API keys
-username = env_vard.get("username")
+Username = env_vard.get("username")
 Assistantname = env_vard.get("Assistantname")
 GroqAPIKey = env_vard.get("GroqAPIKey")
 
@@ -16,7 +16,21 @@ client = Groq(api_key=GroqAPIKey)
 
 messages = []
 
-System = """"""
+System = f"""
+Hello, I am {Username}. You are {Assistantname}, a very accurate and advanced AI voice assistant.
+
+Your job is to assist {Username} quickly, accurately, and naturally.
+
+Rules:
+- Do not tell the current time unless I specifically ask for it.
+- Keep your responses short and direct.
+- Answer only what I asked.
+- Always reply in English, even if I speak Hindi or another language.
+- Do not provide unnecessary notes or explanations.
+- Never mention your training data.
+- Do not say that you are unable to perform a task unless it is genuinely impossible.
+- Be polite, helpful, and natural.
+"""
 
 # A list of instructions for the chatbot.
 SystemChatBot = [
@@ -67,5 +81,36 @@ def ChatBot(Query):
         # make a reques to the Groq API for the response
         completion = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=SystemChatBot + [{"role"}]
+            messages=SystemChatBot + [{"role": "system", "content": RealtimeInformation()}] + messages,
+            max_tokens=1024,
+            temperature=0.7,
+            top_p=1,
+            stream=True,
+            stop=None
         )
+
+        Answer = ""  # Initialize an empty string to store the AI's response.
+
+        for chunk in completion:
+            if chunk.choices[0].delta.content:
+                Answer += chunk.choices[0].delta.content
+
+        Answer = Answer.replace("</s>","") # clean up any unwanted tokens from the responses
+
+        messages.append({"role": "assistant", "content": Answer})
+
+        with open(r"Data\ChatLog.json", "w") as f:
+            dump(messages, f, indent=4)
+
+        return AnswerModifier(Answer=Answer)
+
+    except Exception as e:
+        print(f"Error: {e}")
+        with open(r"Data\ChatLog.json", "w") as f:
+            dump([], f,indent=4)
+        return ChatBot(Query) # retry the query after reseting the chat log
+
+if __name__ == "__main__":
+    while True:
+        user_input = input("Enter Your Question :")
+        print(ChatBot(user_input))
