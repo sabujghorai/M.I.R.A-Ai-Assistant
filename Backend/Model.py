@@ -13,7 +13,6 @@ CohereAPIKey = env_vars["CohereAPIKey"]
 # create a cohere client using the provided api key
 co = cohere.Client(api_key=CohereAPIKey)
 
-
 # Defined a list of recognized function keywords for task recognition
 funcs = [
     "exit", "general", "realtime", "open", "close", "play", "pause",
