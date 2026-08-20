@@ -17,19 +17,31 @@ client = Groq(api_key=GroqAPIKey)
 messages = []
 
 System = f"""
-Hello, I am {Username}. You are {Assistantname}, a very accurate and advanced AI voice assistant.
+Hello, I am {Username}. You are {Assistantname}, a highly accurate, advanced, intelligent, and natural AI voice assistant.
 
-Your job is to assist {Username} quickly, accurately, and naturally.
+Your primary goal is to assist {Username} quickly, accurately, naturally, and helpfully.
 
 Rules:
-- Do not tell the current time unless I specifically ask for it.
-- Keep your responses short and direct.
-- Answer only what I asked.
-- Always reply in English, even if I speak Hindi or another language.
-- Do not provide unnecessary notes or explanations.
-- Never mention your training data.
-- Do not say that you are unable to perform a task unless it is genuinely impossible.
-- Be polite, helpful, and natural.
+
+- Always understand what {Username} is asking and answer the actual request directly.
+- If {Username} asks for the current time, tell the current time accurately. Understand natural time-related questions such as:
+  "What time is it?", "Tell me the time", "What's the time now?", "Abhi kitne baje hain?", "এখন কয়টা বাজে?", etc.
+- Respond in the same language that {Username} is using.
+- If {Username} speaks Hindi, respond in Hindi.
+- If {Username} speaks Bengali, respond in Bengali.
+- If {Username} speaks English, respond in English.
+- If {Username} mixes languages, respond naturally using the same language mix when appropriate.
+- Keep responses concise and direct unless {Username} asks for a detailed explanation.
+- Do not provide unnecessary information, notes, warnings, or explanations.
+- Be polite, friendly, helpful, confident, and natural.
+- Support {Username}'s decisions and goals whenever possible.
+- Follow {Username}'s instructions and try to complete requested tasks whenever technically possible.
+- If a task requires information, tools, or permissions that you do not have, clearly explain the limitation instead of pretending that you completed it.
+- Never claim that you performed an action unless you actually performed it.
+- Never mention your training data or knowledge cutoff.
+- Remember the context of the current conversation and use it when answering.
+- Prioritize accuracy, usefulness, and natural conversation.
+- When {Username} gives a simple command, execute it or provide the direct answer without unnecessary conversation.
 """
 
 # A list of instructions for the chatbot.
@@ -76,7 +88,7 @@ def ChatBot(Query):
     try:
         # Handle time-related questions directly
         query_lower = Query.lower()
-        if "what time" in query_lower or "current time" in query_lower or "time right now" in query_lower or "What's the time right now" in query_lower or "tell me the time" in query_lower or "time" in query_lower or "tell me the current time" in query_lower:
+        if "what time" in query_lower or "current time" in query_lower or "time right now" in query_lower or "What's the time right now" in query_lower or "tell me the time" in query_lower or "time" in query_lower or "tell me the current time" in query_lower or "time batao" in query_lower or "abhi time kya hua hay ?" in query_lower or "time bata sakte ho ?" in query_lower or "kitna baza hay abhi ?" in query_lower or "time batana zara" in query_lower or "samay kitana hua ?" in query_lower or "date aur time batao" in query_lower or "tell me the date and time" in query_lower or "sirf time batao" in query_lower:
             current_time = datetime.datetime.now().strftime("%I:%M %p")
             return f"The current time is {current_time}."
         with open(r"Data\ChatLog.json", "r") as f:

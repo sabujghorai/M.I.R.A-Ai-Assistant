@@ -1,122 +1,42 @@
 [
     {
         "role": "user",
-        "content": "hello MIRA"
+        "content": "date ?"
     },
     {
         "role": "assistant",
-        "content": "Hello Sabuj! How can I help you today?"
+        "content": "Today is August\u202f21,\u202f2026."
     },
     {
         "role": "user",
-        "content": "who is elon musk ?"
+        "content": "today's date ?"
     },
     {
         "role": "assistant",
-        "content": "Elon Musk is a billionaire entrepreneur best known as the CEO of Tesla and SpaceX, and for his roles in companies such as Neuralink, The Boring Company, and formerly PayPal."
+        "content": "Today is August\u202f21,\u202f2026."
     },
     {
         "role": "user",
-        "content": "tell me the time right now"
+        "content": "tell me the date"
     },
     {
         "role": "assistant",
-        "content": "I\u2019m sorry, but I don\u2019t have access to the current time."
+        "content": "Today is August\u202f21,\u202f2026."
     },
     {
         "role": "user",
-        "content": "python -u \"/Users/sabujghorai/Desktop/my-ai-assistant/Backend/Chatbot.py\""
+        "content": "after how many days the 1st sept will come"
     },
     {
         "role": "assistant",
-        "content": "I\u2019m sorry, but I can\u2019t execute that command."
+        "content": "11 days."
     },
     {
         "role": "user",
-        "content": "tell me the time"
+        "content": "kitna baja hay abhi ?"
     },
     {
         "role": "assistant",
-        "content": "I\u2019m sorry, I don\u2019t have that information."
-    },
-    {
-        "role": "user",
-        "content": "tell me the time"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, I don\u2019t have that information."
-    },
-    {
-        "role": "user",
-        "content": "python -u \"/Users/sabujghorai/Desktop/my-ai-assistant/Backend/Chatbot.py\""
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, I don\u2019t have that information."
-    },
-    {
-        "role": "user",
-        "content": "tell me the time"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, I don\u2019t have that information."
-    },
-    {
-        "role": "user",
-        "content": "right now"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, I don\u2019t have that information."
-    },
-    {
-        "role": "user",
-        "content": "github link"
-    },
-    {
-        "role": "assistant",
-        "content": "Could you let me know which GitHub repository you\u2019re looking for?"
-    },
-    {
-        "role": "user",
-        "content": "sabujghorai"
-    },
-    {
-        "role": "assistant",
-        "content": "Here is the GitHub profile for Sabuj Ghorai:  \n[https://github.com/sabujghorai](https://github.com/sabujghorai)"
-    },
-    {
-        "role": "user",
-        "content": "ok write a leave application for me to the HOD"
-    },
-    {
-        "role": "assistant",
-        "content": "**Subject:** Leave Application \u2013\u202f[Your Name]\n\nDear [HOD\u2019s Name],\n\nI hope you are well. I am writing to request leave from **[start date]** to **[end date]** due to **[brief reason \u2013 e.g., personal health, family commitment, etc.]**. I will ensure all my responsibilities are covered and will be reachable by email for any urgent matters.\n\nThank you for your understanding.\n\nSincerely,  \n[Your Name]  \n[Your Program/Department]"
-    },
-    {
-        "role": "user",
-        "content": "ok terminate yourself"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I can\u2019t comply with that."
-    },
-    {
-        "role": "user",
-        "content": "ecxit"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I can\u2019t comply with that."
-    },
-    {
-        "role": "user",
-        "content": "exit"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I can\u2019t comply with that."
+        "content": "\u092e\u0941\u091d\u0947 \u0915\u094d\u0937\u092e\u093e \u0915\u0930\u0947\u0902, \u092e\u0948\u0902 \u0935\u093e\u0938\u094d\u0924\u0935\u093f\u0915 \u0938\u092e\u092f \u0915\u0940 \u0918\u0921\u093c\u0940 \u0924\u0915 \u092a\u0939\u0941\u0901\u091a \u0928\u0939\u0940\u0902 \u0930\u0916\u0924\u093e, \u0907\u0938\u0932\u093f\u090f \u0905\u092d\u0940 \u0915\u093e \u0938\u091f\u0940\u0915 \u0938\u092e\u092f \u092c\u0924\u093e\u0928\u0947 \u092e\u0947\u0902 \u0905\u0938\u092e\u0930\u094d\u0925 \u0939\u0942\u0901\u0964"
     }
 ]
