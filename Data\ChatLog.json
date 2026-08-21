@@ -238,5 +238,13 @@
     {
         "role": "assistant",
         "content": "Sure thing! If you need anything else later, just let me know. Have a great day!"
+    },
+    {
+        "role": "user",
+        "content": "hii"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, Abhi! How can I help you today?"
     }
 ]

@@ -399,36 +399,28 @@ def ChatBot(Query):
             stop=None
         )
 
-
         Answer = ""
-
         for chunk in completion:
             if chunk.choices[0].delta.content:
                 Answer += chunk.choices[0].delta.content
 
         Answer = Answer.replace("</s>", "")
-
-
         messages.append({
             "role": "assistant",
             "content": Answer
         })
 
         with open(r"Data\ChatLog.json", "w") as f:
-
             dump(
                 messages,
                 f,
                 indent=4
             )
-
         return AnswerModifier(
             Answer=Answer
         )
 
-
     except Exception as e:
-
         print(f"Error: {e}")
         with open(r"Data\ChatLog.json", "w") as f:
 
@@ -443,4 +435,4 @@ def ChatBot(Query):
 if __name__ == "__main__":
     while True:
         user_input = input("Enter Your Question :")
-        print(ChatBot(user_input))
+        print("M.I.R.A : ",ChatBot(user_input))
