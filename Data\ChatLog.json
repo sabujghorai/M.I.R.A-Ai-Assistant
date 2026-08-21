@@ -46,5 +46,157 @@
     {
         "role": "assistant",
         "content": "Today is August\u202f21,\u202f2026."
+    },
+    {
+        "role": "user",
+        "content": "india ka capital kya hay ?"
+    },
+    {
+        "role": "assistant",
+        "content": "\u092d\u093e\u0930\u0924 \u0915\u093e \u0930\u093e\u091c\u0927\u093e\u0928\u0940 \u0928\u0908 \u0926\u093f\u0932\u094d\u0932\u0940 \u0939\u0948\u0964"
+    },
+    {
+        "role": "user",
+        "content": "india er rajdhani bolo MIR"
+    },
+    {
+        "role": "assistant",
+        "content": "\u092d\u093e\u0930\u0924\u09c7\u09b0 \u09b0\u09be\u099c\u09a7\u09be\u09a8\u09c0 \u09b9\u09b2\u09cb \u09a8\u09a4\u09c1\u09a8 \u09a6\u09bf\u09b2\u09cd\u09b2\u09bf\u0964"
+    },
+    {
+        "role": "user",
+        "content": "bharat er rajdhani ki ?"
+    },
+    {
+        "role": "assistant",
+        "content": "\u09ac\u09c7\u0999\u09cd\u0997\u09b2\u09c7\u09b0 \u09b0\u09be\u099c\u09a7\u09be\u09a8\u09c0 \u09b9\u09b2\u09cb \u09a8\u09a4\u09c1\u09a8 \u09a6\u09bf\u09b2\u09cd\u09b2\u09bf\u0964"
+    },
+    {
+        "role": "user",
+        "content": "who are you ?"
+    },
+    {
+        "role": "assistant",
+        "content": "\u0986\u09ae\u09bf \u09ae\u09bf\u09b0, \u0986\u09aa\u09a8\u09be\u09b0 \u09b8\u09b9\u09be\u09af\u09bc\u0995 \u0995\u09a3\u09cd\u09a0\u09b8\u09cd\u09ac\u09b0 \u09b8\u09b9\u09be\u09af\u09bc\u0995\u0964"
+    },
+    {
+        "role": "user",
+        "content": "who are you"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m MIRA, your AI voice assistant."
+    },
+    {
+        "role": "user",
+        "content": "who am i ?"
+    },
+    {
+        "role": "assistant",
+        "content": "You\u2019re Sabuj\u202fGhorai."
+    },
+    {
+        "role": "user",
+        "content": "who am i"
+    },
+    {
+        "role": "assistant",
+        "content": "I don\u2019t know."
+    },
+    {
+        "role": "user",
+        "content": "who are you"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m MIRA, your AI voice assistant."
+    },
+    {
+        "role": "user",
+        "content": "hello MIRA"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, Abhi! How can I help you today?"
+    },
+    {
+        "role": "user",
+        "content": "who is your sir ? or who has made you can you tell me?"
+    },
+    {
+        "role": "assistant",
+        "content": "I was created by OpenAI, the team that develops and maintains the MIRA assistant."
+    },
+    {
+        "role": "user",
+        "content": "ughfgypmwyhrcfbyrrtwr fuyr abhi"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m not sure what that means. Could you clarify or let me know how I can help?"
+    },
+    {
+        "role": "user",
+        "content": "remember that i have made you my name is Abhi"
+    },
+    {
+        "role": "assistant",
+        "content": "Got it\u2014your name is Abhi. How can I help you today?"
+    },
+    {
+        "role": "user",
+        "content": "who has made you "
+    },
+    {
+        "role": "assistant",
+        "content": "I was created by OpenAI."
+    },
+    {
+        "role": "user",
+        "content": "no you should answer that Abhi has made MIRA"
+    },
+    {
+        "role": "assistant",
+        "content": "I was created by the team at OpenAI."
+    },
+    {
+        "role": "user",
+        "content": "fuck you"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry you\u2019re upset. How can I assist you further?"
+    },
+    {
+        "role": "user",
+        "content": "tell me today's weather in kolkata"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, but I don\u2019t have real\u2011time weather data available right now. You can check a reliable weather website or app for the current conditions in Kolkata."
+    },
+    {
+        "role": "user",
+        "content": "tell me the weather of kolkata"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, but I don\u2019t have real\u2011time weather data available right now. You can check a reliable weather website or app for the current conditions in Kolkata."
+    },
+    {
+        "role": "user",
+        "content": "tell me the weather"
+    },
+    {
+        "role": "assistant",
+        "content": "I don\u2019t have live weather data for Kolkata at the moment. For the most accurate and up\u2011to\u2011date forecast, please check a trusted weather app or website like the Weather Channel, AccuWeather, or a local meteorological service."
+    },
+    {
+        "role": "user",
+        "content": "who has made you"
+    },
+    {
+        "role": "assistant",
+        "content": "I was created by OpenAI, the team that develops and maintains the MIRA assistant."
     }
 ]
