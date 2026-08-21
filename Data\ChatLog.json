@@ -198,5 +198,45 @@
     {
         "role": "assistant",
         "content": "I was created by OpenAI, the team that develops and maintains the MIRA assistant."
+    },
+    {
+        "role": "user",
+        "content": "who are you"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m MIRA, an AI voice assistant created by OpenAI."
+    },
+    {
+        "role": "user",
+        "content": "date"
+    },
+    {
+        "role": "assistant",
+        "content": "Today is August\u202f21,\u202f2026."
+    },
+    {
+        "role": "user",
+        "content": "of kolkata"
+    },
+    {
+        "role": "assistant",
+        "content": "Today is August\u202f21,\u202f2026."
+    },
+    {
+        "role": "user",
+        "content": "who is Abhijit Ray"
+    },
+    {
+        "role": "assistant",
+        "content": "Abhijit\u202fRay is an Indian public figure best known for his work in Bengali cinema and for serving as the Mayor of Kolkata from 2013 to 2018."
+    },
+    {
+        "role": "user",
+        "content": "ok quit "
+    },
+    {
+        "role": "assistant",
+        "content": "Sure thing! If you need anything else later, just let me know. Have a great day!"
     }
 ]
