@@ -358,5 +358,21 @@
     {
         "role": "assistant",
         "content": "Hello, Sabuj. How can I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "who are you"
+    },
+    {
+        "role": "assistant",
+        "content": "I am MIRA, an advanced AI voice assistant created by OpenAI."
+    },
+    {
+        "role": "user",
+        "content": "who has made you"
+    },
+    {
+        "role": "assistant",
+        "content": "I was created by Sabuj Ghorai."
     }
 ]
