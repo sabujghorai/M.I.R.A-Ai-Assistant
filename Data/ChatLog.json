@@ -1,57 +1,5 @@
 [
     {
-        "role": "user",
-        "content": "can you tell me the time"
-    },
-    {
-        "role": "assistant",
-        "content": "It is currently 19:10."
-    },
-    {
-        "role": "user",
-        "content": "what are you doing"
-    },
-    {
-        "role": "assistant",
-        "content": "I'm just here, ready to assist you. Is there anything specific you need help with?"
-    },
-    {
-        "role": "user",
-        "content": "what's on your mind"
-    },
-    {
-        "role": "assistant",
-        "content": "I'm just thinking about how I can help you today! Is there anything specific on your mind that you'd like to chat about or get assistance with?"
-    },
-    {
-        "role": "user",
-        "content": "ok if you can tell me the age of sahid kapoor that would be great"
-    },
-    {
-        "role": "assistant",
-        "content": "I can certainly help with that. Shahid Kapoor was born on February 25, 1981. As of today, August 22, 2026, he is 45 years old."
-    },
-    {
-        "role": "user",
-        "content": "ok tell me the full form of MIRA"
-    },
-    {
-        "role": "assistant",
-        "content": ""
-    },
-    {
-        "role": "user",
-        "content": "who has made you ?"
-    },
-    {
-        "role": "assistant",
-        "content": ""
-    },
-    {
-        "role": "user",
-        "content": "remember that i have made you means sabuj ghorai"
-    },
-    {
         "role": "assistant",
         "content": "Got it, Abhi. I'll remember that you, Sabuj Ghorai, created me. Thanks for letting me know!"
     },
@@ -78,5 +26,21 @@
     {
         "role": "assistant",
         "content": ""
+    },
+    {
+        "role": "user",
+        "content": "hello mira"
+    },
+    {
+        "role": "assistant",
+        "content": "The name \u201cMIRA\u201d is simply the designation given to this assistant by its creator, Sabuj\u202fGhorai. It does not stand for a longer phrase or acronym."
+    },
+    {
+        "role": "user",
+        "content": "hii mira"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello! How can I assist you today?"
     }
 ]

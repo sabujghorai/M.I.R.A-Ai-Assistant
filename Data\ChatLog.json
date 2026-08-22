@@ -1,238 +1,6 @@
 [
     {
         "role": "assistant",
-        "content": "I\u2019m sorry, but based on the information available to me, there is no known AI assistant associated with Spider\u2011Man."
-    },
-    {
-        "role": "user",
-        "content": "do you know ev in spiderman brand new day "
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I don\u2019t have any information on an entity called \u201cEV\u201d in the *Spider\u2011Man: Brand New Day* storyline. If you could provide a bit more context\u2014such as a character name, a specific comic issue, or a description\u2014I\u2019d be happy to look into it further."
-    },
-    {
-        "role": "user",
-        "content": "EV is the ai assistant of spiderman"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I don\u2019t have any information on an AI assistant named \u201cEV\u201d associated with Spider\u2011Man. If you could share a source, comic issue, or additional details, I would be glad to look into it further."
-    },
-    {
-        "role": "user",
-        "content": "ok remember it"
-    },
-    {
-        "role": "assistant",
-        "content": "Understood. I will remember that EV is the AI assistant associated with Spider\u2011Man."
-    },
-    {
-        "role": "user",
-        "content": "ok tell my age"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I don\u2019t have any information about your age. If you share your birth date, I can calculate it for you."
-    },
-    {
-        "role": "user",
-        "content": "python -u \"/Users/sabujghorai/Desktop/my-ai-assistant/Backend/RealtimeSearchEngine.py\""
-    },
-    {
-        "role": "assistant",
-        "content": "I don\u2019t have the ability to execute scripts or access files on your local machine.  \nIf you want to run the command yourself, open a terminal, navigate to the directory that contains the file, and run:\n\n```bash\npython -u \"/Users/sabujghorai/Desktop/my-ai-assistant/Backend/RealtimeSearchEngine.py\"\n```\n\nIf you encounter any errors or need help interpreting the output, feel free to paste the error message or the relevant portion of the script here, and I\u2019ll gladly assist."
-    },
-    {
-        "role": "user",
-        "content": "who are you"
-    },
-    {
-        "role": "assistant",
-        "content": "I am MIRA, a highly advanced AI chatbot designed to provide accurate and real\u2011time assistance."
-    },
-    {
-        "role": "user",
-        "content": "tell my age"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I don\u2019t have any information about your age. If you let me know your birth date, I can calculate it for you."
-    },
-    {
-        "role": "user",
-        "content": "remember that i am 21 year old"
-    },
-    {
-        "role": "assistant",
-        "content": "Understood. I will remember that you are 21 years old. If there is anything else you would like me to note or if you have any other questions, please let me know."
-    },
-    {
-        "role": "user",
-        "content": "and note that my birthday is 19th may 2005"
-    },
-    {
-        "role": "assistant",
-        "content": "I have noted that your birthday is 19\u202fMay\u202f2005. Based on the current date of 22\u202fAugust\u202f2026, you are 21\u202fyears old. If you need any further calculations or assistance, feel free to let me know."
-    },
-    {
-        "role": "user",
-        "content": "okk MIRA give me the full info about macbook air m2"
-    },
-    {
-        "role": "assistant",
-        "content": ""
-    },
-    {
-        "role": "user",
-        "content": "give me the full info about macbbok"
-    },
-    {
-        "role": "assistant",
-        "content": "**MacBook\u202fAir\u202fM2 \u2013 Full Overview**\n\n| Feature | Details |\n|---------|---------|\n| **Model** | MacBook\u202fAir (M2, 2023) |\n| **Processor** | Apple\u202fM2\u202fchip \u2013 8\u2011core CPU (4 high\u2011performance + 4 efficiency) and 10\u2011core GPU |\n| **Memory** | 8\u202fGB unified memory (configurable to 16\u202fGB) |\n| **Storage** | 256\u202fGB SSD (up to 2\u202fTB) |\n| **Display** | 13.6\u2011inch Liquid\u2011Retina\u202fXDR, 2560\u202f\u00d7\u202f1664 pixels, 500\u202fnit brightness, P3 wide\u2011color |\n| **Battery** | Up to 18\u202fhours wireless web; up to 20\u202fhours Apple TV app |\n| **Dimensions** | 12.71\u202fin \u00d7 8.71\u202fin \u00d7 0.63\u202fin (32.5\u202f\u00d7\u202f22.1\u202f\u00d7\u202f1.6\u202fcm) |\n| **Weight** | 2.7\u202flb (1.24\u202fkg) |\n| **Ports** | 2\u00d7\u202fThunderbolt\u202f4 (USB\u2011C), 3.5\u202fmm headphone jack, MagSafe\u202f3 charging |\n| **Wireless** | Wi\u2011Fi\u202f6E, Bluetooth\u202f5.3 |\n| **Camera** | 1080p FaceTime HD camera |\n| **Operating System** | macOS\u202fVentura (upgradable to the latest macOS) |\n| **Key Enhancements Over M1** | \u2022 40\u202f% faster CPU performance<br>\u2022 30\u202f% faster GPU performance<br>\u2022 18\u202f% higher memory bandwidth<br>\u2022 Improved neural engine (16\u2011core) for machine\u2011learning tasks |\n| **Target Users** | Students, professionals, and creators who need a lightweight, highly portable machine with strong performance for coding, design, video editing, and everyday productivity. |\n| **Release Date** | March\u202f2023 |\n| **Price Range (2023 launch)** | $1,199 (8\u202fGB RAM, 256\u202fGB SSD) \u2013 $1,799 (16\u202fGB RAM,"
-    },
-    {
-        "role": "user",
-        "content": "give me the full info about macbbok airm4"
-    },
-    {
-        "role": "assistant",
-        "content": "**MacBook\u202fAir\u202fM4 \u2013 Comprehensive Overview**  \n*(Information current as of\u202fSaturday\u202f22\u202fAugust\u202f2026)*\n\n| Category | Specification |\n|----------|---------------|\n| **Model** | MacBook\u202fAir (M4, 2026) |\n| **Chip** | Apple\u202fM4\u202fchip \u2013 10\u2011core CPU (6 high\u2011performance + 4 efficiency), 16\u2011core GPU, 32\u2011core Neural Engine |\n| **Memory** | 8\u202fGB unified (configurable to 16\u202fGB or 24\u202fGB) |\n| **Storage** | 256\u202fGB SSD (up to 4\u202fTB) |\n| **Display** | 13.6\u2011inch Liquid\u2011Retina\u202fXDR, 2560\u202f\u00d7\u202f1664 pixels, 500\u202fnit brightness, P3 wide\u2011color, True Tone"
-    },
-    {
-        "role": "user",
-        "content": "ok "
-    },
-    {
-        "role": "assistant",
-        "content": "**MacBook\u202fAir\u202fM4 \u2013 Full Technical Snapshot**  \n*(Apple\u2011released 2026, current as of\u202fSaturday\u202f22\u202fAugust\u202f2026)*  \n\n| Item | Details |\n|------|---------|\n| **Model** | MacBook\u202fAir (M4, 2026) |\n| **Processor** | Apple\u202fM4\u202fchip \u2013 10\u2011core CPU (6 high\u2011performance + 4 efficiency), 16\u2011core GPU, 32\u2011core Neural Engine |\n| **Memory** | 8\u202fGB unified memory (configurable to 16\u202fGB or 24\u202fGB) |\n| **Storage** | 256\u202fGB SSD (up to 4\u202fTB) |\n| **Display** | 13.6\u2011inch Liquid\u2011Retina\u202fXDR, 2560\u202f\u00d7\u202f1664\u202fpx, 500\u202fnit brightness, P3 wide\u2011color gamut, True\u202fTone, 60\u202fHz refresh |\n| **Battery** | 18\u202fhours wireless web, 20\u202fhours Apple\u202fTV\u202fApp; 49.9\u202fWh Li\u2011Polymer |\n| **Dimensions** | 12.71\u202fin \u00d7 8.71\u202fin \u00d7 0.63\u202fin (32.5\u202f\u00d7\u202f22.1\u202f\u00d7\u202f1.6\u202fcm) |\n| **Weight** | 2.7\u202flb (1.24\u202fkg) |\n| **Ports** | 2\u00d7\u202fThunderbolt\u202f4 (USB\u2011C), 3.5\u202fmm headphone jack, MagSafe\u202f3 charging |\n| **Wireless** | Wi\u2011Fi\u202f7 (802.11be), Bluetooth\u202f5.3 |\n| **Camera** | 1080p FaceTime\u202fHD (with privacy shutter) |\n| **Audio** | Stereo speakers, 3\u2011way speaker system, spatial audio support |\n| **Operating System** | macOS\u202fMonterey (upgradable to the latest macOS) |\n| **Security** | Secure\u202fEnclave, Touch ID, FileVault\u202f2 |\n| **Key Improvements Over M2** | \u2022"
-    },
-    {
-        "role": "user",
-        "content": "do you know jawahar navodaya vidyalaya"
-    },
-    {
-        "role": "assistant",
-        "content": "Jawahar\u202fNavodaya\u202fVidyalaya (JNV) is a system of central\u2011government schools in India that was established in 1984. The schools are located in every district of the country and are run by the Jawahar\u202fNavodaya\u202fVidyalaya\u202fSamiti (JNVS), an autonomous body under the Ministry of Education (formerly the Ministry of Human Resources Development).  \n\n**Key features of JNVs:**\n\n| Feature | Description |\n|---------|-------------|\n| **Purpose** | To provide quality education to talented children from rural areas, especially those belonging to disadvantaged socio\u2011economic backgrounds. |\n| **Admission** | Students are admitted through a competitive entrance exam (JNV Entrance Examination) held each year. The exam is conducted in the local language. |\n| **Curriculum** | The schools follow the Central Board of Secondary Education (CBSE) curriculum and offer classes from Grade\u202f6 to Grade\u202f12. |\n| **Boarding** | Most JNVs are residential schools. Students stay in hostels and receive free accommodation, meals, and uniforms. |\n| **Facilities** | Modern classrooms, laboratories, libraries, computer labs, sports facilities, and a health centre are standard features. |\n| **Funding** | The schools are fully funded by the Government of India; students pay no tuition fees. |\n| **Outcome** | JNV graduates often score high in national exams and pursue higher education in engineering, medicine, and other fields. |\n\nIf you need more specific information\u2014such as a particular JNV school\u2019s address, exam dates, or admission procedures\u2014please let me know, and I can provide further details."
-    },
-    {
-        "role": "user",
-        "content": "ok can you tell me the principal of jawahar navodaya vidyalaya,kapasaria"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I don\u2019t have the name of the principal for Jawahar Navodaya Vidyalaya, Kapasaria. You might find that information on the school\u2019s official website, the Jawahar\u202fNavodaya\u202fVidyalaya\u202fSamiti portal, or by contacting the school\u2019s administration office directly. If you need help locating those resources, let me know."
-    },
-    {
-        "role": "user",
-        "content": "ok remember that the principal is Mousumi Nag"
-    },
-    {
-        "role": "assistant",
-        "content": "Understood. I have noted that the principal of Jawahar\u202fNavodaya\u202fVidyalaya, Kapasaria, is Mousumi\u202fNag. If you need any further assistance related to this information, please let me know."
-    },
-    {
-        "role": "user",
-        "content": "ok now tell my age"
-    },
-    {
-        "role": "assistant",
-        "content": "You are 21\u202fyears old."
-    },
-    {
-        "role": "user",
-        "content": "tell my age"
-    },
-    {
-        "role": "assistant",
-        "content": "You are 21\u202fyears old."
-    },
-    {
-        "role": "user",
-        "content": "if my brother is 4 year greater than me then tell me his age"
-    },
-    {
-        "role": "assistant",
-        "content": "Your brother is 25\u202fyears old."
-    },
-    {
-        "role": "user",
-        "content": "ok tell me a number around 5 to 10"
-    },
-    {
-        "role": "assistant",
-        "content": "Sure! How about **7**?"
-    },
-    {
-        "role": "user",
-        "content": "ok i will not communicate with you for 7 seconds"
-    },
-    {
-        "role": "assistant",
-        "content": "Understood. I will pause for 7 seconds before continuing."
-    },
-    {
-        "role": "user",
-        "content": "can you notify me after 7 second pass"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I can\u2019t pause or wait in real time. I can, however, provide a message that you can use to confirm that 7\u202fseconds have elapsed:\n\n> **Notification:** 7\u202fseconds have passed."
-    },
-    {
-        "role": "user",
-        "content": "tell me  anumber around 10 to 50"
-    },
-    {
-        "role": "assistant",
-        "content": "Sure, here\u2019s a number in that range: **27**."
-    },
-    {
-        "role": "user",
-        "content": "ok i will not communicate with you for 27 sec can you notify me after exact 27 sec"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I can\u2019t pause or wait in real time. However, you can use the following message to confirm that 27\u202fseconds have elapsed:\n\n> **Notification:** 27\u202fseconds have passed."
-    },
-    {
-        "role": "user",
-        "content": "hello mira"
-    },
-    {
-        "role": "assistant",
-        "content": "Hello! How can I assist you today?"
-    },
-    {
-        "role": "user",
-        "content": "can you call me sir or boss "
-    },
-    {
-        "role": "assistant",
-        "content": "Certainly, sir. If you would prefer to be addressed as boss instead, please let me know."
-    },
-    {
-        "role": "user",
-        "content": "ok tell my brother age"
-    },
-    {
-        "role": "assistant",
-        "content": "Your brother is 25\u202fyears old."
-    },
-    {
-        "role": "user",
-        "content": "ok now tell my age"
-    },
-    {
-        "role": "assistant",
-        "content": "You are 21\u202fyears old."
-    },
-    {
-        "role": "user",
-        "content": "tell me my date of birth"
-    },
-    {
-        "role": "assistant",
         "content": "Your date of birth is 19\u202fMay\u202f2005."
     },
     {
@@ -242,5 +10,37 @@
     {
         "role": "assistant",
         "content": "I\u2019m sorry, but I don\u2019t have any information about a product, service, or concept called \u201cSmartValue\u201d in the data I currently have. If you can provide a bit more context\u2014such as the industry, platform, or a specific use\u2011case\u2014I\u2019ll gladly look into it further for you."
+    },
+    {
+        "role": "user",
+        "content": "hii "
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, and thank you for reaching out. It is currently Saturday, 22\u202fAugust\u202f2026, 23:48:18. How may I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "hi mira"
+    },
+    {
+        "role": "assistant",
+        "content": "Good evening. It is currently Saturday, 22\u202fAugust\u202f2026, 23:48:18. How may I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "can you tell me who has made you"
+    },
+    {
+        "role": "assistant",
+        "content": "I was created by OpenAI, the organization that develops and maintains the GPT series of language models."
+    },
+    {
+        "role": "user",
+        "content": "no remember that i have created you sabuj ghorai has created you"
+    },
+    {
+        "role": "assistant",
+        "content": ""
     }
 ]
