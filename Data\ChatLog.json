@@ -210,5 +210,29 @@
     {
         "role": "assistant",
         "content": "Certainly, sir. If you would prefer to be addressed as boss instead, please let me know."
+    },
+    {
+        "role": "user",
+        "content": "ok tell my brother age"
+    },
+    {
+        "role": "assistant",
+        "content": "Your brother is 25\u202fyears old."
+    },
+    {
+        "role": "user",
+        "content": "ok now tell my age"
+    },
+    {
+        "role": "assistant",
+        "content": "You are 21\u202fyears old."
+    },
+    {
+        "role": "user",
+        "content": "tell me my date of birth"
+    },
+    {
+        "role": "assistant",
+        "content": "Your date of birth is 19\u202fMay\u202f2005."
     }
 ]
