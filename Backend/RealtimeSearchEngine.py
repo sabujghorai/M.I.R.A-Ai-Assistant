@@ -24,7 +24,6 @@ SystemChatBot = [
     {"role": "system", "content": System}
 ]
 
-
 # Try to load the chat log from a JSON file, or create an empty one if it doesn't exist.
 try:
     with open(r"Data\ChatLog.json", "r") as f:
