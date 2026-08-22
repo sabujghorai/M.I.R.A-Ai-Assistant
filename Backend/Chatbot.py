@@ -435,4 +435,4 @@ def ChatBot(Query):
 if __name__ == "__main__":
     while True:
         user_input = input("Enter Your Question :")
-        print("M.I.R.A : ",ChatBot(user_input))
+        print(ChatBot(user_input))
