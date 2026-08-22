@@ -234,5 +234,13 @@
     {
         "role": "assistant",
         "content": "Your date of birth is 19\u202fMay\u202f2005."
+    },
+    {
+        "role": "user",
+        "content": "do you know about smartvalue ?"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, but I don\u2019t have any information about a product, service, or concept called \u201cSmartValue\u201d in the data I currently have. If you can provide a bit more context\u2014such as the industry, platform, or a specific use\u2011case\u2014I\u2019ll gladly look into it further for you."
     }
 ]
