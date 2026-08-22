@@ -80,7 +80,6 @@ def RealtimeSearchEngine(prompt):
     with open(r"Data\ChatLog.json", "r") as f:
         messages = load(f)
     messages.append({"role": "user", "content": f"{prompt}"})
-    messages = messages[-10:]  # keep only the most recent 10 messages
 
     # Add Google search results to the system chatbot messages
     SystemChatBot.append({"role": "system", "content": GoogleSearch(prompt)})
