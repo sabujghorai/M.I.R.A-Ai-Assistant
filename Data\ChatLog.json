@@ -430,5 +430,21 @@
     {
         "role": "assistant",
         "content": "Your age is 21, Sir."
+    },
+    {
+        "role": "user",
+        "content": "python -u \"/Users/sabujghorai/Desktop/my-ai-assistant/Backend/Chatbot.py\""
+    },
+    {
+        "role": "assistant",
+        "content": "I don\u2019t have the ability to run scripts or execute commands on your computer.  \nTo start your chatbot, open a terminal and run:\n\n```bash\npython -u \"/Users/sabujghorai/Desktop/my-ai-assistant/Backend/Chatbot.py\"\n```\n\nMake sure Python and all required dependencies are installed. If you run into any errors or need help configuring the environment, just let me know!"
+    },
+    {
+        "role": "user",
+        "content": "tell me the date"
+    },
+    {
+        "role": "assistant",
+        "content": "Today is Saturday,\u202f22\u202fAugust\u202f2026."
     }
 ]
