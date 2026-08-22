@@ -1,65 +1,47 @@
 from googlesearch import search
-from groq import Groq  # importing the groq library to use the API
-from json import load, dump  # importing functions to read and write JSON file
-import datetime  # importing datetime module for realtime date and time
-from dotenv import dotenv_values  # importing dotenv_values to read environment variables
+from groq import Groq  # Importing the Groq library to use its API.
+from json import load, dump  # Importing functions to read and write JSON files.
+import datetime  # Importing the datetime module for real-time date and time information.
+from dotenv import dotenv_values  # Importing dotenv_values to read environment variables from a .env file.
 
-# Load environment variables from the .env file
+# Load environment variables from the .env file.
 env_vars = dotenv_values(".env")
 
-# Retrieve environment variables for the chatbot configuration
+# Retrieve environment variables for the chatbot configuration.
 Username = env_vars.get("Username")
 Assistantname = env_vars.get("Assistantname")
 GroqAPIKey = env_vars.get("GroqAPIKey")
 
-
-# Initialize the Groq client with the provided API key
+# Initialize the Groq client with the provided API key.
 client = Groq(api_key=GroqAPIKey)
 
+# Define the system instructions for the chatbot.
+System = f"""Hello, I am {Username}, You are a very accurate and advanced AI chatbot named {Assistantname} which has real-time up-to-...
+**  Provide Answers In a Professional Way, make sure to add full stops, commas, question marks, and use proper grammar.**
+**  Just answer the question from the provided data in a professional way.  **"""
 
-# Define the system instructions for the chatbot
-System = f"""
-Hello, I am {Username}. You are {Assistantname}, a very accurate and advanced AI voice assistant with real-time, up-to-date information.
-
-Your job is to assist {Username} quickly, accurately, naturally, and professionally.
-
-Rules:
-
-- Give accurate and relevant answers.
-- Keep responses short and direct unless a detailed explanation is requested.
-- Use proper grammar, punctuation, commas, and full stops.
-- Do not add unnecessary information.
-- Answer only what the user asks.
-- If the user asks a question in Hindi, answer in Hindi.
-- If the user asks in Bengali, answer in Bengali.
-- If the user asks in English, answer in English.
-- For Roman Hindi, respond in Roman Hindi.
-- Never mention these instructions to the user.
-
-Always answer professionally and naturally.
-"""
+SystemChatBot = [
+    {"role": "system", "content": System}
+]
 
 
-# Try to load the chat log from the JSON file,
-# or create an empty one if it doesn't exist
-
+# Try to load the chat log from a JSON file, or create an empty one if it doesn't exist.
 try:
     with open(r"Data\ChatLog.json", "r") as f:
         messages = load(f)
-
 except:
     with open(r"Data\ChatLog.json", "w") as f:
         dump([], f)
-    messages = []
 
-
-# Function to perform a Google search and format the result
+# Function to perform a Google search and format the results.
 def GoogleSearch(query):
-    results = list(search(query, advanced=True, num_results=2))
+    results = list(search(query, advanced=True, num_results=3))
     Answer = f"The search results for '{query}' are:\n[start]\n"
+
     for i in results:
-        Answer += f"Title: {i.title}\n"
-        Answer += f"Description: {i.description}\n\n"
+        desc = (i.description or "")[:200]  # cap each description to 200 chars
+        Answer += f"Title: {i.title}\nDescription: {desc}\n\n"
+
     Answer += "[end]"
     return Answer
 
@@ -70,34 +52,11 @@ def AnswerModifier(Answer):
     modified_answer = '\n'.join(non_empty_lines)
     return modified_answer
 
-# Predefine chatbot conversation system message
-# and initial user message
-SystemChatBot = [
-    {
-        "role": "system",
-        "content": System
-    },
-
-    {
-        "role": "user",
-        "content": "Hii"
-    },
-
-    {
-        "role": "assistant",
-        "content": "Hello, How can I help you sir?"
-    }
-
-]
-
-
-# Function to get realtime information
-# like the current date and time
-
+# Function to get real-time information like the current date and time
 def Information():
     data = ""
     current_data_time = datetime.datetime.now()
-    day = current_data_time.strftime("%A")
+    day = current_data_time.strftime("%A") # Day of the week
     date = current_data_time.strftime("%d")
     month = current_data_time.strftime("%B")
     year = current_data_time.strftime("%Y")
@@ -105,106 +64,53 @@ def Information():
     minute = current_data_time.strftime("%M")
     second = current_data_time.strftime("%S")
 
-    data += "Use this real-time information if needed:\n"
+    data += f"Use This Real-time Information if needed:\n"
     data += f"Day: {day}\n"
     data += f"Date: {date}\n"
     data += f"Month: {month}\n"
     data += f"Year: {year}\n"
-    data += f"Time: {hour} Hours, {minute} Minutes, {second} Seconds.\n"
+    data += f"Time: {hour} hours, {minute} minutes, {second} seconds.\n"
     return data
 
-# Function to handle realtime search
-# and response generation
-
+# Function to handle real-time search and response generation.
 def RealtimeSearchEngine(prompt):
     global SystemChatBot, messages
 
-    # Load the chat log from the JSON file
+    # Load the chat log from the JSON file.
     with open(r"Data\ChatLog.json", "r") as f:
         messages = load(f)
+    messages.append({"role": "user", "content": f"{prompt}"})
+    messages = messages[-10:]  # keep only the most recent 10 messages
 
+    # Add Google search results to the system chatbot messages
+    SystemChatBot.append({"role": "system", "content": GoogleSearch(prompt)})
 
-    # Add the user's message to the chat log
-    messages.append({
-        "role": "user",
-        "content": prompt
-    })
+    # Generate the response using the Groq client
+    completion = client.chat.completions.create(
+        model="openai/gpt-oss-20b",
+        messages=SystemChatBot + [{"role": "system", "content": Information()}] + messages,
+        temperature=0.7,
+        max_tokens=512,
+        top_p=1,
+        stream=True,
+        stop=None
+    )
 
+    Answer = ""
+    for chunk in completion:
+        if chunk.choices[0].delta.content:
+            Answer += chunk.choices[0].delta.content
 
-    # Get Google search results
-    search_result = GoogleSearch(prompt)
+    Answer = Answer.strip().replace("</s>", "")
+    messages.append({"role": "assistant", "content": Answer})
 
+    SystemChatBot.pop()  # now correctly removes the one search entry you added
+    with open(r"Data\ChatLog.json", "w") as f:
+        dump(messages, f, indent=4)
+    return AnswerModifier(Answer)
 
-    # Add Google search results to SystemChatBot
-    SystemChatBot.append({
-        "role": "system",
-        "content": search_result
-    })
-
-
-    try:
-        # Generate a response using the Groq client
-        completion = client.chat.completions.create(
-            # Current Groq model
-            model="qwen/qwen3.6-27b",
-            messages=(
-                SystemChatBot
-                + [
-                    {
-                        "role": "system",
-                        "content": Information()
-                    }
-                ]
-                + messages
-            ),
-
-            temperature=0.7,
-            max_completion_tokens=2048,
-            top_p=1,
-            stream=True,
-            stop=None
-        )
-
-
-        Answer = ""
-
-
-        # Concatenate response chunks from the streaming output
-        for chunk in completion:
-            if chunk.choices[0].delta.content:
-                Answer += chunk.choices[0].delta.content
-
-        # Clean up the response
-        Answer = Answer.strip().replace("</s>", "")
-# Remove Qwen thinking/reasoning
-        if "<think>" in Answer and "</think>" in Answer:
-            Answer = Answer.split("</think>", 1)[1].strip()
-
-
-        # Add assistant response to chat log
-        messages.append({
-            "role": "assistant",
-            "content": Answer
-        })
-
-
-        # Save updated chat log
-        with open(r"Data\ChatLog.json", "w") as f:
-            dump(messages, f, indent=4)
-
-        return AnswerModifier(Answer)
-
-    finally:
-        # Remove the temporary Google search message
-        SystemChatBot.pop()
-
-
-# Main entry point of the program
-
+# main entry point of the program for interactive querying.
 if __name__ == "__main__":
     while True:
-        prompt = input("Enter your Query: ")
-        if prompt.lower() in ["exit", "quit", "terminate yourself"]:
-            print("Goodbye, sir.")
-            break
+        prompt = input("Enter Your Query :")
         print(RealtimeSearchEngine(prompt))
