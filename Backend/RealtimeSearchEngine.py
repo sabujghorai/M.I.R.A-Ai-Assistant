@@ -24,6 +24,7 @@ SystemChatBot = [
     {"role": "system", "content": System}
 ]
 
+
 # Try to load the chat log from a JSON file, or create an empty one if it doesn't exist.
 try:
     with open(r"Data\ChatLog.json", "r") as f:
@@ -79,6 +80,7 @@ def RealtimeSearchEngine(prompt):
     with open(r"Data\ChatLog.json", "r") as f:
         messages = load(f)
     messages.append({"role": "user", "content": f"{prompt}"})
+    messages = messages[-10:]  # keep only the most recent 10 messages
 
     # Add Google search results to the system chatbot messages
     SystemChatBot.append({"role": "system", "content": GoogleSearch(prompt)})
