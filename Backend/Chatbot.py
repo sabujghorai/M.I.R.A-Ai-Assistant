@@ -89,10 +89,6 @@ def GetWeather(city):
 
     try:
 
-        # ==========================================
-        # STEP 1: FIND LOCATION
-        # ==========================================
-
         geo_url = "https://geocoding-api.open-meteo.com/v1/search"
 
         geo_params = {
