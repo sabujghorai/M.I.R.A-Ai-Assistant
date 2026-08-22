@@ -406,5 +406,21 @@
     {
         "role": "assistant",
         "content": "I don\u2019t have access to the current Times of India headlines. For the latest updates, please check their official website or app."
+    },
+    {
+        "role": "user",
+        "content": "who is the prime minister of india"
+    },
+    {
+        "role": "assistant",
+        "content": "Narendra Modi is the Prime Minister of India."
+    },
+    {
+        "role": "user",
+        "content": "hii mira"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, Sabuj. How can I assist you today?"
     }
 ]
