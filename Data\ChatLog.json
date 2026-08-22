@@ -194,5 +194,21 @@
     {
         "role": "assistant",
         "content": "I\u2019m sorry, but I can\u2019t pause or wait in real time. However, you can use the following message to confirm that 27\u202fseconds have elapsed:\n\n> **Notification:** 27\u202fseconds have passed."
+    },
+    {
+        "role": "user",
+        "content": "hello mira"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello! How can I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "can you call me sir or boss "
+    },
+    {
+        "role": "assistant",
+        "content": "Certainly, sir. If you would prefer to be addressed as boss instead, please let me know."
     }
 ]
