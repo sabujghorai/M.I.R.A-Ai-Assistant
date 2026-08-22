@@ -107,12 +107,11 @@ def Information():
 
     data += "Use this real-time information if needed:\n"
     data += f"Day: {day}\n"
-    data+= f"Date: {date}\n"
+    data += f"Date: {date}\n"
     data += f"Month: {month}\n"
     data += f"Year: {year}\n"
     data += f"Time: {hour} Hours, {minute} Minutes, {second} Seconds.\n"
     return data
-
 
 # Function to handle realtime search
 # and response generation
@@ -120,10 +119,10 @@ def Information():
 def RealtimeSearchEngine(prompt):
     global SystemChatBot, messages
 
-
     # Load the chat log from the JSON file
     with open(r"Data\ChatLog.json", "r") as f:
         messages = load(f)
+
 
     # Add the user's message to the chat log
     messages.append({
@@ -135,14 +134,15 @@ def RealtimeSearchEngine(prompt):
     # Get Google search results
     search_result = GoogleSearch(prompt)
 
+
     # Add Google search results to SystemChatBot
     SystemChatBot.append({
         "role": "system",
         "content": search_result
     })
 
-    try:
 
+    try:
         # Generate a response using the Groq client
         completion = client.chat.completions.create(
             # Current Groq model
@@ -174,16 +174,14 @@ def RealtimeSearchEngine(prompt):
             if chunk.choices[0].delta.content:
                 Answer += chunk.choices[0].delta.content
 
-
         # Clean up the response
         Answer = Answer.strip().replace("</s>", "")
-
 # Remove Qwen thinking/reasoning
         if "<think>" in Answer and "</think>" in Answer:
             Answer = Answer.split("</think>", 1)[1].strip()
 
-        # Add assistant response to chat log
 
+        # Add assistant response to chat log
         messages.append({
             "role": "assistant",
             "content": Answer
@@ -197,11 +195,12 @@ def RealtimeSearchEngine(prompt):
         return AnswerModifier(Answer)
 
     finally:
-
         # Remove the temporary Google search message
         SystemChatBot.pop()
 
+
 # Main entry point of the program
+
 if __name__ == "__main__":
     while True:
         prompt = input("Enter your Query: ")
