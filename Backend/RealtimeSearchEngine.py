@@ -1,10 +1,17 @@
 import os
+import re
 import time
 from googlesearch import search
 from groq import Groq
 from json import load, dump
 import datetime
 from dotenv import dotenv_values
+
+try:
+    import yfinance as yf
+    YFINANCE_AVAILABLE = True
+except ImportError:
+    YFINANCE_AVAILABLE = False
 
 env_vars = dotenv_values(".env")
 
@@ -25,11 +32,12 @@ MEMORY_PATH = os.path.join(DATA_DIR, "Memory.json")
 
 os.makedirs(DATA_DIR, exist_ok=True)
 
-MAX_HISTORY_PAIRS = 10  # number of (user, assistant) turns to keep
+MAX_HISTORY_PAIRS = 10
 
 System = f"""Hello, I am {Username}, You are a very accurate and advanced AI chatbot named {Assistantname} which has real-time up-to-date information from the internet.
 **  Provide Answers In a Professional Way, make sure to add full stops, commas, question marks, and use proper grammar.**
 **  Always use the facts given to you in the "Permanent Memory" section below when relevant — treat them as ground truth about the user, even if they weren't asked directly in this message.**
+**  Always use the live data given to you below (search results and/or stock data) when relevant, and combine them with the Permanent Memory and Real-time Information to give the most complete, accurate answer possible.**
 **  Just answer the question from the provided data in a professional way.  **"""
 
 SystemChatBot = [
@@ -51,8 +59,6 @@ def save_chatlog(msgs):
         dump(msgs, f, indent=4)
 
 # ---- Permanent memory ----
-# NOTE: keep real personal data only in Data/Memory.json (gitignored),
-# not hardcoded here — this file may end up in version control.
 DEFAULT_MEMORY = {
     "creator": "",
     "user_name": Username,
@@ -121,27 +127,67 @@ def MemoryContext():
         lines.append(f"- Preference: {pref}")
     return "\n".join(lines)
 
-# ---- Search ----
-def needs_search(prompt: str) -> bool:
-    """Cheap heuristic to avoid hitting Google on every single message."""
-    trivial_starts = ("hi", "hello", "hey", "thanks", "thank you", "ok", "okay", "bye")
-    p = prompt.strip().lower()
-    if len(p) < 4:
-        return False
-    if p.startswith(trivial_starts):
-        return False
-    return True
+# ---- Stock price lookup ----
+# Common company-name -> ticker aliases, since users say "Apple" not "AAPL"
+TICKER_ALIASES = {
+    "apple": "AAPL", "microsoft": "MSFT", "google": "GOOGL", "alphabet": "GOOGL",
+    "amazon": "AMZN", "tesla": "TSLA", "meta": "META", "facebook": "META",
+    "nvidia": "NVDA", "netflix": "NFLX", "intel": "INTC", "amd": "AMD",
+}
 
-def GoogleSearch(query, retries=2, delay=2):
-    if not needs_search(query):
-        return ""
+STOCK_PATTERN = re.compile(
+    r"\b(stock price|share price|stock quote|ticker|share value)\b|\$[A-Za-z]{1,5}\b",
+    re.IGNORECASE
+)
+
+def extract_ticker(prompt: str):
+    """Best-effort: find a known company name or an explicit $TICKER in the prompt."""
+    p = prompt.lower()
+    for name, ticker in TICKER_ALIASES.items():
+        if name in p:
+            return ticker
+    m = re.search(r"\$([A-Za-z]{1,5})\b", prompt)
+    if m:
+        return m.group(1).upper()
+    return None
+
+def is_stock_query(prompt: str) -> bool:
+    return bool(STOCK_PATTERN.search(prompt)) or extract_ticker(prompt) is not None
+
+def GetStockPrice(prompt: str):
+    if not YFINANCE_AVAILABLE:
+        return "[Stock lookup unavailable: install the 'yfinance' package]"
+    ticker_symbol = extract_ticker(prompt)
+    if not ticker_symbol:
+        return "[Could not determine which company/ticker was meant]"
+    try:
+        ticker = yf.Ticker(ticker_symbol)
+        info = ticker.fast_info
+        price = info.get("last_price") if hasattr(info, "get") else getattr(info, "last_price", None)
+        currency = info.get("currency") if hasattr(info, "get") else getattr(info, "currency", "USD")
+        if price is None:
+            return f"[No live price found for ticker {ticker_symbol}]"
+        return (
+            f"Live stock data for {ticker_symbol}:\n"
+            f"[start]\n"
+            f"Ticker: {ticker_symbol}\n"
+            f"Last Price: {price:.2f} {currency}\n"
+            f"[end]"
+        )
+    except Exception as e:
+        return f"[Stock lookup failed for {ticker_symbol}: {e}]"
+
+# ---- Web search ----
+def GoogleSearch(query, num_results=5, retries=2, delay=2):
     for attempt in range(retries + 1):
         try:
-            results = list(search(query, advanced=True, num_results=3))
+            results = list(search(query, advanced=True, num_results=num_results))
+            if not results:
+                return f"[No search results found for '{query}']"
             Answer = f"The search results for '{query}' are:\n[start]\n"
             for i in results:
-                desc = (i.description or "")[:200]
-                Answer += f"Title: {i.title}\nDescription: {desc}\n\n"
+                desc = (i.description or "")[:300]
+                Answer += f"Title: {i.title}\nURL: {i.url}\nDescription: {desc}\n\n"
             Answer += "[end]"
             return Answer
         except Exception as e:
@@ -170,11 +216,16 @@ def RealtimeSearchEngine(prompt):
     messages = load_chatlog()
     messages.append({"role": "user", "content": prompt})
 
-    search_context = GoogleSearch(prompt)
-    system_blocks = [{"role": "system", "content": MemoryContext()},
-                      {"role": "system", "content": Information()}]
-    if search_context:
-        system_blocks.append({"role": "system", "content": search_context})
+    if is_stock_query(prompt):
+        live_context = GetStockPrice(prompt)
+    else:
+        live_context = GoogleSearch(prompt)
+
+    system_blocks = [
+        {"role": "system", "content": MemoryContext()},
+        {"role": "system", "content": Information()},
+        {"role": "system", "content": live_context},
+    ]
 
     request_messages = SystemChatBot + system_blocks + messages[-(2 * MAX_HISTORY_PAIRS):]
 
@@ -184,7 +235,7 @@ def RealtimeSearchEngine(prompt):
             model="openai/gpt-oss-20b",
             messages=request_messages,
             temperature=0.7,
-            max_tokens=512,
+            max_tokens=1024,
             top_p=1,
             stream=True,
             stop=None
@@ -199,7 +250,6 @@ def RealtimeSearchEngine(prompt):
     Answer = Answer.strip().replace("</s>", "")
     messages.append({"role": "assistant", "content": Answer})
 
-    # keep only the most recent N pairs on disk
     save_chatlog(messages[-(2 * MAX_HISTORY_PAIRS):])
 
     return AnswerModifier(Answer)

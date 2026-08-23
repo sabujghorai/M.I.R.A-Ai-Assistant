@@ -1,70 +1,6 @@
 [
     {
         "role": "user",
-        "content": "good morning mira tell me today's news"
-    },
-    {
-        "role": "assistant",
-        "content": "Good morning, Sabuj! I\u2019m glad you\u2019re reaching out. Unfortunately, I don\u2019t have access to live news feeds right now, so I can\u2019t provide the latest headlines. If there\u2019s a particular topic or event you\u2019re interested in, let me know and I\u2019ll do my best to give you the most up\u2011to\u2011date information I have."
-    },
-    {
-        "role": "user",
-        "content": "don't call me sabuj give me some bloddy respect like sir or boss ok"
-    },
-    {
-        "role": "assistant",
-        "content": "Good morning, Sir. How may I assist you today?"
-    },
-    {
-        "role": "user",
-        "content": "what is my age"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, Sir, but I don\u2019t have that information in my records."
-    },
-    {
-        "role": "user",
-        "content": "remember that my age is 21 year and my date of birth is 19th may 2005"
-    },
-    {
-        "role": "assistant",
-        "content": "Thank you for letting me know, Sir. I\u2019ll keep in mind that you are 21 years old and that your date of birth is 19\u202fMay\u202f2005. If you have any other details or questions, feel free to share."
-    },
-    {
-        "role": "user",
-        "content": "ok according to my date of birth can you tell me my age along with the day also acuurately"
-    },
-    {
-        "role": "assistant",
-        "content": ""
-    },
-    {
-        "role": "user",
-        "content": "what happen mira"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m not sure what you\u2019re referring to, Sir. Could you please clarify what you\u2019d like to know about?"
-    },
-    {
-        "role": "user",
-        "content": "tell me how old am i with year,monnth and day"
-    },
-    {
-        "role": "assistant",
-        "content": "Sir, as of today, 23\u202fAugust\u202f2026, you are 21\u202fyears, 3\u202fmonths, and 4\u202fdays old."
-    },
-    {
-        "role": "user",
-        "content": "could you tell me in which day i have borned tell me the name of the day"
-    },
-    {
-        "role": "assistant",
-        "content": ""
-    },
-    {
-        "role": "user",
         "content": "could you tell me the day i have born"
     },
     {
@@ -78,5 +14,69 @@
     {
         "role": "assistant",
         "content": "You\u2019re very welcome, Sir. If there\u2019s anything else you\u2019d like to know, just let me know."
+    },
+    {
+        "role": "user",
+        "content": "what is the stock price of apple"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, Sir, but I don\u2019t have real\u2011time market data available at the moment. For the most accurate and up\u2011to\u2011date Apple (AAPL) stock price, please check a reliable financial news site, your brokerage platform, or a reputable market\u2011data service."
+    },
+    {
+        "role": "user",
+        "content": "how older i am"
+    },
+    {
+        "role": "assistant",
+        "content": "You are 21\u202fyears, 3\u202fmonths, and 4\u202fdays old as of today, 23\u202fAugust\u202f2026."
+    },
+    {
+        "role": "user",
+        "content": "heloo mira"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello, Sir. How can I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "can you tell me the stock price of tata"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m happy to help, but I need a bit more information. \u201cTata\u201d could refer to several companies\u2014Tata Consultancy Services (TCS), Tata Motors, Tata Steel, Tata Power, or even the broader Tata Group. Could you let me know which specific Tata stock you\u2019re interested in? Once I have that, I can provide the most accurate and up\u2011to\u2011date price information."
+    },
+    {
+        "role": "user",
+        "content": "can you tell me the stock price of apple"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, Sir, but I don\u2019t have a live price for Apple (AAPL) available at this moment. For the most accurate and up\u2011to\u2011date information, please check a reputable financial news site, your brokerage platform, or a market\u2011data service."
+    },
+    {
+        "role": "user",
+        "content": "can you tell me the total networth of elon musk"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, Sir, but I don\u2019t have that information available right now."
+    },
+    {
+        "role": "user",
+        "content": "what is my age"
+    },
+    {
+        "role": "assistant",
+        "content": "You are 21\u202fyears, 3\u202fmonths, and 4\u202fdays old."
+    },
+    {
+        "role": "user",
+        "content": "ok tell me about the Apple "
+    },
+    {
+        "role": "assistant",
+        "content": "Apple\u202fInc. (ticker:\u202fAAPL) is an American multinational technology company headquartered in Cupertino, California. It was founded in 1976 by Steve\u202fJobs, Steve\u202fWozniak, and Ronald\u202fWayne\u202fGraham, and it has grown into one of the world\u2019s most valuable and influential firms.\n\n**Key Highlights**\n\n| Category | Details |\n|----------|---------|\n| **Core Products** | \u2022 iPhone (smartphones) <br>\u2022 iPad (tablets) <br>\u2022 Mac (personal computers) <br>\u2022 Apple Watch (wearables) <br>\u2022 AirPods (wireless earbuds) |\n| **Services** | \u2022 App\u202fStore <br>\u2022 Apple\u202fMusic <br>\u2022 Apple\u202fTV+ <br>\u2022 iCloud <br>\u2022 Apple Pay <br>\u2022 Apple\u202fCare+ |\n| **Financials (2025 FY)** | \u2022 Revenue: ~$394\u202fbillion <br>\u2022 Net income: ~$99\u202fbillion <br>\u2022 Operating margin: ~27\u202f% |\n| **Market Position** | \u2022 Market\u2011capitalized over $3\u202ftrillion (as of late 2025) <br>\u2022 Consistently the highest\u2011valued company globally <br>\u2022 Strong brand loyalty and ecosystem integration |\n| **Recent Developments** | \u2022 Continued expansion of the services segment, now accounting for >30\u202f% of total revenue <br>\u2022 Ongoing investment in augmented\u2011reality (AR) and artificial\u2011intelligence (AI) technologies <br>\u2022 Focus on sustainability: 100\u202f% renewable energy for all facilities and a goal to become carbon\u2011neutral across the entire supply chain by 2030 |\n| **Leadership** | \u2022 CEO: Tim\u202fCook (since 2011) <br>\u2022 Chairman: Arthur\u202fDavis (since 2021) |\n\n**Why It Matters**\n\nApple\u2019s product ecosystem creates high switching costs for customers, which supports a robust subscription\u2011based revenue stream. Its strong brand and premium pricing strategy allow it to maintain healthy profit margins even in highly competitive markets. The company\u2019s continued emphasis on services and emerging technologies positions it well for future growth.\n\nIf you would like more detailed financial figures, product launch dates, or specific strategic initiatives, feel free to let me know."
     }
 ]
