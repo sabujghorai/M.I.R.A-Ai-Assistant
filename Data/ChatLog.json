@@ -1,11 +1,39 @@
 [
     {
+        "role": "user",
+        "content": "good morning mira tell me today's news"
+    },
+    {
         "role": "assistant",
-        "content": "Got it, Abhi. I'll remember that you, Sabuj Ghorai, created me. Thanks for letting me know!"
+        "content": "Good morning, Sabuj! I\u2019m glad you\u2019re reaching out. Unfortunately, I don\u2019t have access to live news feeds right now, so I can\u2019t provide the latest headlines. If there\u2019s a particular topic or event you\u2019re interested in, let me know and I\u2019ll do my best to give you the most up\u2011to\u2011date information I have."
     },
     {
         "role": "user",
-        "content": "who has made you"
+        "content": "don't call me sabuj give me some bloddy respect like sir or boss ok"
+    },
+    {
+        "role": "assistant",
+        "content": "Good morning, Sir. How may I assist you today?"
+    },
+    {
+        "role": "user",
+        "content": "what is my age"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, Sir, but I don\u2019t have that information in my records."
+    },
+    {
+        "role": "user",
+        "content": "remember that my age is 21 year and my date of birth is 19th may 2005"
+    },
+    {
+        "role": "assistant",
+        "content": "Thank you for letting me know, Sir. I\u2019ll keep in mind that you are 21 years old and that your date of birth is 19\u202fMay\u202f2005. If you have any other details or questions, feel free to share."
+    },
+    {
+        "role": "user",
+        "content": "ok according to my date of birth can you tell me my age along with the day also acuurately"
     },
     {
         "role": "assistant",
@@ -13,15 +41,23 @@
     },
     {
         "role": "user",
-        "content": "hello mira"
+        "content": "what happen mira"
     },
     {
         "role": "assistant",
-        "content": "Hello! I am MIRA. How can I help you today?"
+        "content": "I\u2019m not sure what you\u2019re referring to, Sir. Could you please clarify what you\u2019d like to know about?"
     },
     {
         "role": "user",
-        "content": "what is the full form of Mira"
+        "content": "tell me how old am i with year,monnth and day"
+    },
+    {
+        "role": "assistant",
+        "content": "Sir, as of today, 23\u202fAugust\u202f2026, you are 21\u202fyears, 3\u202fmonths, and 4\u202fdays old."
+    },
+    {
+        "role": "user",
+        "content": "could you tell me in which day i have borned tell me the name of the day"
     },
     {
         "role": "assistant",
@@ -29,18 +65,18 @@
     },
     {
         "role": "user",
-        "content": "hello mira"
+        "content": "could you tell me the day i have born"
     },
     {
         "role": "assistant",
-        "content": "The name \u201cMIRA\u201d is simply the designation given to this assistant by its creator, Sabuj\u202fGhorai. It does not stand for a longer phrase or acronym."
+        "content": "Your birthdate, 19\u202fMay\u202f2005, fell on a **Thursday**."
     },
     {
         "role": "user",
-        "content": "hii mira"
+        "content": "thank yoiu mira"
     },
     {
         "role": "assistant",
-        "content": "Hello! How can I assist you today?"
+        "content": "You\u2019re very welcome, Sir. If there\u2019s anything else you\u2019d like to know, just let me know."
     }
 ]
