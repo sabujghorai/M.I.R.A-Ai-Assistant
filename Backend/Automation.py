@@ -258,7 +258,6 @@ def OpenApp(app, sess=requests.session()):
         else:
             print("Failed to retrive search results.")  # print an error message
         return None
-
     html = search_google(f"{app} official website")  # perform the google search
 
     if html:
@@ -284,7 +283,6 @@ def CloseApp(app):
             return result.returncode == 0  # Indicate success/failure
         except Exception:
             return False  # Indicate failure
-CloseApp("Terminal")
 # Function to execute system-level commands (macOS volume control via osascript).
 def System(command):
 
@@ -317,7 +315,6 @@ def System(command):
         volume_down()
 
     return True  # Indicate success
-
 
 # Asynchronous function to translate and execute user commands.
 async def TranslateAndExecute(commands: list[str]):
@@ -384,10 +381,5 @@ async def Automation(commands: list[str]):
     return True
 
 
-# if __name__ == "__main__":
-#     # Quick manual test when running this file directly, e.g.:
-#     #   python Automation.py
-#     # Try any app name loosely — the fuzzy matcher resolves it to the real
-#     # installed app name automatically (e.g. "chrome" -> "Google Chrome").
-#     test_commands = ["open chrome", "open whatsapp", "open notes"]
-#     asyncio.run(Automation(test_commands))
+if __name__ == "__main__":
+    asyncio.run(Automation(["open google Chrome","search Github on youtube","play a song on youtube"]))
