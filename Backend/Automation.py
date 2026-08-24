@@ -270,6 +270,7 @@ def OpenApp(app, sess=requests.session()):
 # Function to close an application (macOS).
 def CloseApp(app):
 
+
     if "chrome" in app:
         pass
     else:
@@ -283,6 +284,7 @@ def CloseApp(app):
             return result.returncode == 0  # Indicate success/failure
         except Exception:
             return False  # Indicate failure
+CloseApp("Visual Studio Code")
 # Function to execute system-level commands (macOS volume control via osascript).
 def System(command):
 
@@ -381,5 +383,3 @@ async def Automation(commands: list[str]):
     return True
 
 
-if __name__ == "__main__":
-    asyncio.run(Automation(["open google Chrome","search Github on youtube","play a song on youtube"]))
