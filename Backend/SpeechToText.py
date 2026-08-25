@@ -72,7 +72,7 @@ user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 chrome_option.add_argument(f'user-agent={user_agent}')
 chrome_option.add_argument("--use-fake-ui-for-media-stream")
 chrome_option.add_argument("--use-fake-device-for-media-stream")
-# chrome_option.add_argument("--headless=new")
+chrome_option.add_argument("--headless=new")
 # Initialize the chrome webdriver using the chromeDriverManager.
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_option)
