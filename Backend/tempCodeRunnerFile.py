@@ -1,1 +1,1 @@
-AssistantVoice
+OpenApp("open Docker,chrome,kubernetes,System setting")
