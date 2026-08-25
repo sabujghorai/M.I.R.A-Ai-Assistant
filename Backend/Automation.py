@@ -179,12 +179,12 @@ def YouTubeSearch(Topic):
     Url4Search = f"https://www.youtube.com/results?search_query={Topic}"
     webbrowser.open(Url4Search)
     return True
-YouTubeSearch("Hamsafar")
+
 # Function to play a video on YouTube.
 def PlayYoutube(query):
     playonyt(query)
     return True
-PlayYoutube("jaat magma")
+
 # Directories macOS installs .app bundles into — scanned to build the real app list.
 APP_DIRS = [
     "/Applications",
