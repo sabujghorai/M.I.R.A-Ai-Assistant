@@ -1,1 +1,1 @@
-OpenApp("open Docker,chrome,kubernetes,System setting")
+Assistantname
