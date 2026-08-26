@@ -44,7 +44,7 @@ SystemChatBot = [
     {"role": "system", "content": System}
 ]
 
-# ---- Chat log ----
+
 def load_chatlog():
     try:
         with open(CHATLOG_PATH, "r") as f:
