@@ -110,6 +110,5 @@ while True:
         else:
             sleep(1)  # wait for 1 second before checking again
 
-    except Exception as e:
-        print(f"[ImageGeneration] Error: {e}")
-        sleep(1)
+    except :
+        pass
