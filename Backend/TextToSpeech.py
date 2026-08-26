@@ -99,7 +99,6 @@ def TextToSpeach(Text, func=lambda r=None: True):
     else:
         TTS(Text, func)
 
-
 if __name__ == "__main__":
     while True:
         # Prompt user for input and pass it ro TextToSpeach funtion
