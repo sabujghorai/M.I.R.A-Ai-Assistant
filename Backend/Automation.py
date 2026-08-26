@@ -489,7 +489,6 @@ async def TranslateAndExecute(commands: list[str]):
         else:
             yield result
 
-
 # Asynchronous function to automate command execution.
 async def Automation(commands: list[str]):
     async for result in TranslateAndExecute(commands):
