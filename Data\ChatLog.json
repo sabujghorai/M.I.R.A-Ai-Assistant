@@ -218,5 +218,21 @@
     {
         "role": "assistant",
         "content": "Here\u2019s a quick, respectful playbook:\n\n| Step | What to do | Why it works |\n|------|------------|--------------|\n| 1. **Start with a genuine compliment** | \u201cYour smile really lights up the room.\u201d | Shows you\u2019re paying attention and sets a positive tone. |\n| 2. **Ask open\u2011ended questions** | \u201cWhat\u2019s something you\u2019re passionate about?\u201d | Encourages a deeper conversation and lets you learn about her interests. |\n| 3. **Show active listening** | Nodding, repeating key points, and asking follow\u2011ups. | Demonstrates you value what she says and builds rapport. |\n| 4. **Share something light about yourself** | \u201cI\u2019m a bit of a foodie\u2014any favorite restaurants?\u201d | Balances the conversation and gives her a chance to relate. |\n| 5. **Use playful teasing (if appropriate)** | \u201cI\u2019m pretty good at trivia. Bet I\u2019ll beat you in a game of \u201820 Questions\u2019.\u201d | Adds humor, but keep it friendly and non\u2011offensive. |\n| 6. **Mirror her energy** | Match her tone and pace subtly. | Creates a sense of comfort and connection. |\n| 7. **Mind body language** | Smile, maintain eye contact, keep an open posture. | Signals interest without being overbearing. |\n| 8. **Read her cues** | If she smiles, laughs, and engages, keep going; if she\u2019s distracted or uncomfortable, step back. | Respecting boundaries is key. |\n| 9. **Offer a low\u2011pressure next step** | \u201cIt was great chatting\u2014would you like to grab coffee sometime?\u201d | Gives her an easy way to say yes or no. |\n\n**Bottom line:** Be authentic, respectful, and attentive. Good luck!"
+    },
+    {
+        "role": "user",
+        "content": "mira you up?"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m right here\u2014fully awake and ready to help!"
+    },
+    {
+        "role": "user",
+        "content": "can you open google chrome"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, but I don\u2019t have the ability to launch applications on your device. If you need help with something in Chrome, just let me know and I can guide you!"
     }
 ]

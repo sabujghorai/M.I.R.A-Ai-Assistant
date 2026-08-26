@@ -293,6 +293,7 @@ def guess_official_domain(app_name, sess, timeout=1.5):
 KNOWN_APP_WEBSITES = {
     "docker": "https://www.docker.com",
     "kubernetes": "https://kubernetes.io",
+    "facebook": "https://www.facebook.com/",
     "chrome": "https://www.google.com/chrome",
     "google chrome": "https://www.google.com/chrome",
     "notion": "https://www.notion.so",
