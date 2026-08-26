@@ -93,7 +93,6 @@ ChatHistory = [
     {"role": "Chatbot", "message": "exit bye jarvis"},
 ]
 
-
 def FirstLayerDMM(prompt: str = "test"):
     """Classify a user query into one or more task categories."""
 
