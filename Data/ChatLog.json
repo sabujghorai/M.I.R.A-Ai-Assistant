@@ -1,14 +1,6 @@
 [
     {
         "role": "user",
-        "content": "who is shoumyadip sharangi"
-    },
-    {
-        "role": "assistant",
-        "content": "I\u2019m sorry, but I don\u2019t have any information on a person named\u202fShoumyadip\u202fSharangi."
-    },
-    {
-        "role": "user",
         "content": "who is the Father of India"
     },
     {
@@ -78,5 +70,13 @@
     {
         "role": "assistant",
         "content": "I am **Mira (M.I.R.A.)**, an advanced AI chatbot created by Sabuj\u202fGhorai. I am designed to provide accurate, up\u2011to\u2011date information by accessing real\u2011time data from the internet. My responses are generated in a professional tone, with correct punctuation and grammar. As of now, it is **Wednesday, 26\u202fAugust\u202f2026, 18:30:57**."
+    },
+    {
+        "role": "user",
+        "content": "tell me about brainware university"
+    },
+    {
+        "role": "assistant",
+        "content": "I\u2019m sorry, but I don\u2019t have any information on Brainware University."
     }
 ]
