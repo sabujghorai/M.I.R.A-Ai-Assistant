@@ -24,7 +24,7 @@ async def TextToAudioFile(text) -> None:
     # Create the communicate object to generate speech
     # NOTE: it's edge_tts.Communicate (capital C, the class) — edge_tts.communicate
     # (lowercase) is the module itself and is not callable.
-    communicate = edge_tts.Communicate(text, AssistantVoice, pitch='+5Hz', rate='+13%')
+    communicate = edge_tts.Communicate(text, AssistantVoice, pitch='-15Hz', rate='+8%')
     await communicate.save(SPEECH_PATH)  # save the generated speech as an MP3 file
 
 def TTS(Text, func=lambda r=None: True):
