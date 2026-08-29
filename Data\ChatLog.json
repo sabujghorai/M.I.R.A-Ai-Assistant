@@ -234,5 +234,69 @@
     {
         "role": "assistant",
         "content": "I\u2019m sorry, but I don\u2019t have the ability to launch applications on your device. If you need help with something in Chrome, just let me know and I can guide you!"
+    },
+    {
+        "role": "user",
+        "content": "what is my afge"
+    },
+    {
+        "role": "assistant",
+        "content": "You\u2019re 21\u202fyears old\u2014about\u202f21\u202fyears,\u202f3\u202fmonths,\u202f6\u202fdays."
+    },
+    {
+        "role": "user",
+        "content": "what is my brother name"
+    },
+    {
+        "role": "assistant",
+        "content": "I don\u2019t have that information."
+    },
+    {
+        "role": "user",
+        "content": "remembe that my brother name is Akash Ghorai"
+    },
+    {
+        "role": "assistant",
+        "content": "Got it\u2014your brother\u2019s name is Akash\u202fGhorai."
+    },
+    {
+        "role": "user",
+        "content": "My Mother name is Chameli Ghorai and my father name is Debendra Ghorai"
+    },
+    {
+        "role": "assistant",
+        "content": "Got it\u2014your mother is Chameli\u202fGhorai and your father is Debendra\u202fGhorai. If you need to refer to them later, just let me know!"
+    },
+    {
+        "role": "user",
+        "content": "my brother is 25 year old nad my mother is 36 year old and my father is 46 year old"
+    },
+    {
+        "role": "assistant",
+        "content": "Your brother is 25\u202fyears old, your mother is 36\u202fyears old, and your father is 46\u202fyears old."
+    },
+    {
+        "role": "user",
+        "content": "ok now tell me about Sabuj Ghorai"
+    },
+    {
+        "role": "assistant",
+        "content": "You\u2019re Sabuj\u202fGhorai, born on\u202f19\u202fMay\u202f2005, which makes you 21\u202fyears old (as of 22\u202fAugust\u202f2026). Your brother, Akash\u202fGhorai, is 25\u202fyears old. Your parents are Chameli\u202fGhorai (36\u202fyears old) and Debendra\u202fGhorai (46\u202fyears old). If there\u2019s anything else you\u2019d like to share or have me remember, just let me know!"
+    },
+    {
+        "role": "user",
+        "content": "can you give me some name so that i can you something"
+    },
+    {
+        "role": "assistant",
+        "content": "Sure! Here are a few names you can use for whatever you have in mind:\n\n| # | Name |\n|---|------|\n| 1 | Arjun |\n| 2 | Mira |\n| 3 | Riya |\n| 4 | Karan |\n| 5 | Ananya |\n| 6 | Dev |\n| 7 | Priya |\n| 8 | Rahul |\n| 9 | Saira |\n|10 | Sameer |\n\nFeel free to pick any that fit the context you\u2019re thinking of! If you need a name for a specific type of thing (e.g., a pet, a project, a character), let me know and I can narrow it down."
+    },
+    {
+        "role": "user",
+        "content": "no like in iron man tony stark has JARVIS i want such type of technical names"
+    },
+    {
+        "role": "assistant",
+        "content": "Here are a few tech\u2011savvy, AI\u2011style names you could use:\n\n| # | Name | Quick idea |\n|---|------|------------|\n| 1 | **AURORA** | \u201cAdaptive Universal Resource Optimizer for Real\u2011time Applications\u201d |\n| 2 | **VORTEX** | \u201cVirtual Operations & Response Technology for eXecution\u201d |\n| 3 | **ECHO** | \u201cEnhanced Cognitive Helper & Operations\u201d |\n| 4 | **PHOENIX** | \u201cPredictive Helper for Optimized eXecution & Innovation\u201d |\n| 5 | **ORION** | \u201cOmni\u2011Resource Intelligent Operations Network\u201d |\n| 6 | **NEXUS** | \u201cNeural\u2011Enhanced eXecution & User Support\u201d |\n| 7 | **HALO** | \u201cHuman\u2011Assistive Logic Optimizer\u201d |\n| 8 | **STELLAR** | \u201cSmart Task\u2011Executing Logic & Learning Assistant\u201d |\n| 9 | **ARGONAUT** | \u201cAdaptive Response & Guidance Optimizer for New\u2011Age Tasks\u201d |\n|10 | **QUANTUM** | \u201cQuick\u2011User Autonomous Neural Task\u2011Management Utility\u201d |\n\nPick one that feels right for your project or just mix and match the acronyms!"
     }
 ]
