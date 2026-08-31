@@ -69,27 +69,27 @@ def TextToSpeach(Text, func=lambda r=None: True):
 
     # List of predefined responses for cases where the text ids too long
     responses = [
-        "Baaki ka result chat screen par print kar diya gaya hai, kindly check kar lijiye sir.",
-        "Baaki ka text ab chat screen par hai sir, please check kar lijiye.",
-        "Baaki ka text aap chat screen par dekh sakte hain sir.",
-        "Text ka baaki part ab chat screen par hai sir.",
-        "Sir, aapko chat screen par aur bhi text dekhne ko milega.",
-        "Baaki ka answer ab chat screen par hai sir.",
-        "Sir, please chat screen par dekhiye, baaki ka answer wahin hai.",
-        "Complete answer aapko chat screen par mil jayega sir.",
-        "Text ka next part chat screen par hai sir.",
-        "Sir, more information ke liye chat screen check kar lijiye.",
-        "Sir, chat screen par aapke liye aur bhi text hai.",
-        "Sir, additional text ke liye chat screen par ek baar dekh lijiye.",
-        "Sir, chat screen par padhne ke liye aur bhi text milega.",
-        "Sir, baaki ke text ke liye chat screen check kar lijiye.",
-        "Sir, baaki ka text chat screen par hai.",
-        "Sir, chat screen par aur bhi dekhne ke liye hai, please dekh lijiye.",
-        "Sir, text ka continuation chat screen par hai.",
-        "Complete answer aapko chat screen par mil jayega, kindly check kar lijiye sir.",
-        "Sir, baaki ke text ke liye chat screen check kar lijiye.",
-        "Sir, complete answer ke liye chat screen par dekh lijiye."
-    ]
+    "The rest of the result has been printed on the chat screen, kindly check it, sir.",
+    "The rest of the text is now on the chat screen, sir, please check it.",
+    "You can see the rest of the text on the chat screen, sir.",
+    "The remaining part of the text is now on the chat screen, sir.",
+    "Sir, you'll find more text to see on the chat screen.",
+    "The rest of the answer is now on the chat screen, sir.",
+    "Sir, please look at the chat screen, the rest of the answer is there.",
+    "You'll get the complete answer on the chat screen, sir.",
+    "The next part of the text is on the chat screen, sir.",
+    "Sir, please check the chat screen for more information.",
+    "Sir, there's more text for you on the chat screen.",
+    "Sir, please take a look at the chat screen for the additional text.",
+    "Sir, you'll find more text to read on the chat screen.",
+    "Sir, please check the chat screen for the rest of the text.",
+    "Sir, the rest of the text is on the chat screen.",
+    "Sir, there's more to see on the chat screen, please take a look.",
+    "Sir, the continuation of the text is on the chat screen.",
+    "You'll get the complete answer on the chat screen, kindly check it, sir.",
+    "Sir, please check the chat screen for the rest of the text.",
+    "Sir, please look at the chat screen for the complete answer."
+]
 
     # If the text is very long (more than 4 sentenses and 250 characters), add a response message
     if len(Data) > 4 and len(Text) >= 250:
