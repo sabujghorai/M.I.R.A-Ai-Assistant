@@ -369,7 +369,7 @@ def OpenApp(app, sess=requests.session()):
         results = list(executor.map(open_one, app_names))
 
     return all(results)
-OpenApp("whatsapp")
+
 # Function to close an application (macOS). Supports multiple apps in one command.
 def CloseApp(app):
     app_names = re.split(r"\s*(?:,|&|\band\b)\s*", app.strip(), flags=re.IGNORECASE)
