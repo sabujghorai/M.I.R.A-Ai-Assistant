@@ -6,17 +6,9 @@ from backend.priority import calculate_priority
 from backend.optimizer import find_best_block
 
 
-# =========================================
-# FLASK APP
-# =========================================
-
 app = Flask(__name__)
 CORS(app)
 
-
-# =========================================
-# LOAD RAILWAY DATA
-# =========================================
 
 maintenance_data = pd.read_csv("data/maintenance.csv")
 train_data = pd.read_csv("data/trains.csv")
