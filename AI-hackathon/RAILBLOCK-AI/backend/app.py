@@ -55,9 +55,7 @@ BASE_SCHEDULE = [
 requests_data = []
 
 
-# =========================================
 # HOME
-# =========================================
 
 @app.route("/")
 def home():
@@ -68,9 +66,9 @@ def home():
     })
 
 
-# =========================================
+
 # DASHBOARD API
-# =========================================
+
 
 @app.route("/api/dashboard")
 def dashboard():
@@ -86,9 +84,8 @@ def dashboard():
     })
 
 
-# =========================================
+
 # BLOCK SCHEDULE API
-# =========================================
 
 @app.route("/api/schedule")
 def schedule():
@@ -110,9 +107,8 @@ def schedule():
     return jsonify(schedule_data)
 
 
-# =========================================
 # ADD MAINTENANCE REQUEST
-# =========================================
+
 
 @app.route("/api/requests", methods=["POST"])
 def add_request():
@@ -155,10 +151,6 @@ def add_request():
     }), 201
 
 
-# =========================================
-# AI BLOCK OPTIMIZER
-# =========================================
-
 @app.route("/api/optimize", methods=["POST"])
 def optimize():
 
@@ -178,15 +170,8 @@ def optimize():
     section = target_request["section"]
     priority = target_request["priority"]
 
-    # -------------------------------------
-    # Calculate priority score
-    # -------------------------------------
-
+  
     priority_score = calculate_priority(priority)
-
-    # -------------------------------------
-    # Find trains on requested section
-    # -------------------------------------
 
     section_trains = train_data[
         train_data["section"] == section
@@ -194,40 +179,27 @@ def optimize():
 
     train_times = section_trains["time"].tolist()
 
-    # -------------------------------------
-    # Find best maintenance block
-    # -------------------------------------
-
     # For now, maintenance duration
     # is assumed to be 2 hours.
     result = find_best_block(
         2,
-        train_times
+        train_times,
+        BASE_SCHEDULE
     )
 
-    # -------------------------------------
     # If no block is available
-    # -------------------------------------
-
     if result is None:
 
         return jsonify({
             "message": f"No suitable block found for section {section}."
         }), 400
 
-    # -------------------------------------
-    # Persist the result — this is the part that used to be missing.
-    # Without it, /api/schedule had no way of knowing a slot had
-    # been assigned, so the row stayed "Unscheduled / TBD" forever.
-    # -------------------------------------
-
     target_request["block_time"] = f"{result['start']} - {result['end']}"
-    target_request["day"] = "Pending confirmation"
+    target_request["day"] = result["day"]
 
-    # -------------------------------------
+
+
     # Send result to frontend
-    # -------------------------------------
-
     return jsonify({
 
         "message":
