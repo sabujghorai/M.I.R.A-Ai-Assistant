@@ -49,6 +49,11 @@
   <section id="schedule" class="view">
     <h2>Weekly Block Schedule</h2>
 
+    <div class="toolbar">
+      <button id="optimizeBtn">Run AI Optimizer</button>
+      <span id="optimizeMsg"></span>
+    </div>
+
     <table class="schedule-table">
       <thead>
         <tr>
@@ -63,28 +68,28 @@
         <tr>
           <td>Monday</td>
           <td>Engineering</td>
-          <td>Sec A-12</td>
+          <td>SDAH-BWN</td>
           <td>10:00 - 12:00</td>
           <td class="high">High</td>
         </tr>
         <tr>
           <td>Tuesday</td>
           <td>Signal &amp; Telecom</td>
-          <td>Sec B-05</td>
+          <td>BWN-KNJ</td>
           <td>14:00 - 16:00</td>
           <td class="medium">Medium</td>
         </tr>
         <tr>
           <td>Wednesday</td>
           <td>Traction Distribution</td>
-          <td>Sec C-09</td>
+          <td>KNJ-CPLE</td>
           <td>09:00 - 11:00</td>
           <td class="high">High</td>
         </tr>
         <tr>
           <td>Friday</td>
           <td>Engineering</td>
-          <td>Sec A-07</td>
+          <td>CPLE-RHA</td>
           <td>13:00 - 15:00</td>
           <td class="low">Low</td>
         </tr>
@@ -108,7 +113,14 @@
 
       <div>
         <label for="section">Section / Track ID</label>
-        <input type="text" id="section" placeholder="e.g. Sec A-12" required>
+        <select id="section" required>
+          <option value="">-- Select --</option>
+          <option value="SDAH-BWN">SDAH-BWN</option>
+          <option value="BWN-KNJ">BWN-KNJ</option>
+          <option value="KNJ-CPLE">KNJ-CPLE</option>
+          <option value="CPLE-RHA">CPLE-RHA</option>
+          <option value="RHA-AZ">RHA-AZ</option>
+        </select>
       </div>
 
       <div>
@@ -120,6 +132,7 @@
         <label for="priority">Priority</label>
         <select id="priority" required>
           <option value="">-- Select --</option>
+          <option value="Critical">Critical</option>
           <option value="High">High</option>
           <option value="Medium">Medium</option>
           <option value="Low">Low</option>
