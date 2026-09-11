@@ -22,8 +22,44 @@ maintenance_data = pd.read_csv("data/maintenance.csv")
 train_data = pd.read_csv("data/trains.csv")
 
 
-# Store maintenance requests submitted
-# from the frontend
+# The base weekly schedule. Submitted requests are appended to this
+# at read time in /api/schedule — they used to be tracked in a
+# separate list that /api/schedule never looked at, so new requests
+# never appeared anywhere.
+BASE_SCHEDULE = [
+    {
+        "day": "Monday",
+        "department": "Engineering",
+        "section": "SDAH-BWN",
+        "block_time": "10:00 - 12:00",
+        "priority": "High"
+    },
+    {
+        "day": "Tuesday",
+        "department": "Signal & Telecom",
+        "section": "BWN-KNJ",
+        "block_time": "14:00 - 16:00",
+        "priority": "Medium"
+    },
+    {
+        "day": "Wednesday",
+        "department": "Traction Distribution",
+        "section": "KNJ-CPLE",
+        "block_time": "09:00 - 11:00",
+        "priority": "High"
+    },
+    {
+        "day": "Friday",
+        "department": "Engineering",
+        "section": "CPLE-RHA",
+        "block_time": "13:00 - 15:00",
+        "priority": "Low"
+    }
+]
+
+# Store maintenance requests submitted from the frontend.
+# Each item: department, section, issue, priority, and — once the
+# optimizer has run for it — day / block_time.
 requests_data = []
 
 
@@ -47,8 +83,12 @@ def home():
 @app.route("/api/dashboard")
 def dashboard():
 
+    unscheduled_count = sum(
+        1 for r in requests_data if "block_time" not in r
+    )
+
     return jsonify({
-        "pending_count": len(requests_data),
+        "pending_count": unscheduled_count,
         "blocks_available": 8,
         "asset_uptime": 92
     })
@@ -61,36 +101,19 @@ def dashboard():
 @app.route("/api/schedule")
 def schedule():
 
-    schedule_data = [
-        {
-            "day": "Monday",
-            "department": "Engineering",
-            "section": "SDAH-BWN",
-            "block_time": "10:00 - 12:00",
-            "priority": "High"
-        },
-        {
-            "day": "Tuesday",
-            "department": "Signal & Telecom",
-            "section": "BWN-KNJ",
-            "block_time": "14:00 - 16:00",
-            "priority": "Medium"
-        },
-        {
-            "day": "Wednesday",
-            "department": "Traction Distribution",
-            "section": "KNJ-CPLE",
-            "block_time": "09:00 - 11:00",
-            "priority": "High"
-        },
-        {
-            "day": "Friday",
-            "department": "Engineering",
-            "section": "CPLE-RHA",
-            "block_time": "13:00 - 15:00",
-            "priority": "Low"
-        }
-    ]
+    schedule_data = list(BASE_SCHEDULE)
+
+    # Include every submitted request. Ones the optimizer has already
+    # assigned a slot to show their real day/time; the rest show as
+    # Unscheduled so it's clear they're still waiting.
+    for r in requests_data:
+        schedule_data.append({
+            "day": r.get("day", "Unscheduled"),
+            "department": r["department"],
+            "section": r["section"],
+            "block_time": r.get("block_time", "TBD"),
+            "priority": r["priority"]
+        })
 
     return jsonify(schedule_data)
 
@@ -147,18 +170,21 @@ def add_request():
 @app.route("/api/optimize", methods=["POST"])
 def optimize():
 
-    # Check whether a request exists
-    if len(requests_data) == 0:
+    # Work on the oldest request that hasn't been scheduled yet.
+    # The old version always grabbed requests_data[-1] (the newest
+    # one), so re-running the optimizer kept re-scheduling the same
+    # latest request and older pending ones were never reached.
+    unscheduled = [r for r in requests_data if "block_time" not in r]
 
+    if not unscheduled:
         return jsonify({
-            "message": "No maintenance request available."
+            "message": "No unscheduled maintenance requests available."
         }), 400
 
-    # Get the latest request
-    latest_request = requests_data[-1]
+    target_request = unscheduled[0]
 
-    section = latest_request["section"]
-    priority = latest_request["priority"]
+    section = target_request["section"]
+    priority = target_request["priority"]
 
     # -------------------------------------
     # Calculate priority score
@@ -194,8 +220,17 @@ def optimize():
     if result is None:
 
         return jsonify({
-            "message": "No suitable block found."
+            "message": f"No suitable block found for section {section}."
         }), 400
+
+    # -------------------------------------
+    # Persist the result — this is the part that used to be missing.
+    # Without it, /api/schedule had no way of knowing a slot had
+    # been assigned, so the row stayed "Unscheduled / TBD" forever.
+    # -------------------------------------
+
+    target_request["block_time"] = f"{result['start']} - {result['end']}"
+    target_request["day"] = "Pending confirmation"
 
     # -------------------------------------
     # Send result to frontend
@@ -216,7 +251,7 @@ def optimize():
             priority_score,
 
         "recommended_block":
-            f"{result['start']} - {result['end']}",
+            target_request["block_time"],
 
         "conflicts":
             result["conflicts"]
